@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>CSES-Subarray-Squares-Editorial</title>
+    <link href="/2023/02/21/CSES-Subarray-Squares-Editorial/"/>
+    <url>/2023/02/21/CSES-Subarray-Squares-Editorial/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://cses.fi/problemset/task/2086/">題目連結</a></p><h2 id="題目大意"><a href="#題目大意" class="headerlink" title="題目大意"></a>題目大意</h2><p>給定一個長度為 $n$ 的數列，把他切成 $k$ 個連續的子數列。子數列的花費為子數列裡數字和的平方，總花費為每個子數列花費的加總，求最小花費？</p><h2 id="題解"><a href="#題解" class="headerlink" title="題解"></a>題解</h2><p>可以觀察到切割成越多份時，總花費會越小，且如果我們定義一個函式 $f(k)$ 為切成 $k$ 份時的最小花費，則 $f$ 會是一個凸函式。因此，我們可以套用 Aliens 優化，不限制切割次數，但對每個切割額外收取手續費，並對手續費做二分搜，讓最小花費剛好落在切割 $k$ 次。關於 Aliens 優化詳細的技巧可以參考<a href="https://hackmd.io/@wiwiho/cp-note/%2F%40wiwiho%2FCPN-aliens">這篇文章</a>。</p><p>時間複雜度為 $O(n^2 \log C)$，$C$ 是手續費的值域。</p><h2 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h2><figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;bits/stdc++.h&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-comment">// find minimum</span><br><span class="hljs-function"><span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">class</span> Func&gt;</span><br><span class="hljs-function"><span class="hljs-type">long</span> <span class="hljs-type">long</span> <span class="hljs-title">Aliens</span><span class="hljs-params">(<span class="hljs-type">long</span> <span class="hljs-type">long</span> l, <span class="hljs-type">long</span> <span class="hljs-type">long</span> r, <span class="hljs-type">int</span> k, Func f)</span> </span>{<br><span class="hljs-keyword">while</span>(l &lt; r) {<br><span class="hljs-type">long</span> <span class="hljs-type">long</span> m = l + (r - l) / <span class="hljs-number">2</span>;<br><span class="hljs-keyword">auto</span> [score, op] = <span class="hljs-built_in">f</span>(m);<br><span class="hljs-keyword">if</span>(op == k) {<br><span class="hljs-keyword">return</span> score - m * k;<br>}<br><span class="hljs-keyword">if</span>(op &lt; k) {<br>r = m;<br>} <span class="hljs-keyword">else</span> {<br>l = m + <span class="hljs-number">1</span>;<br>}<br>}<br><span class="hljs-keyword">return</span> <span class="hljs-built_in">f</span>(l).first - l * k;<br>}<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{<br>ios::<span class="hljs-built_in">sync_with_stdio</span>(<span class="hljs-literal">false</span>);<br>cin.<span class="hljs-built_in">tie</span>(<span class="hljs-number">0</span>);<br><span class="hljs-type">int</span> n, k;<br>cin &gt;&gt; n &gt;&gt; k;<br><span class="hljs-function">vector&lt;<span class="hljs-type">long</span> <span class="hljs-type">long</span>&gt; <span class="hljs-title">a</span><span class="hljs-params">(n)</span></span>;<br><span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; ++i) {<br>cin &gt;&gt; a[i];<br>}<br><span class="hljs-function">vector&lt;<span class="hljs-type">long</span> <span class="hljs-type">long</span>&gt; <span class="hljs-title">pref</span><span class="hljs-params">(n + <span class="hljs-number">1</span>)</span></span>;<br><span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; ++i) {<br>pref[i + <span class="hljs-number">1</span>] = pref[i] + a[i];<br>}<br><span class="hljs-type">const</span> <span class="hljs-type">long</span> <span class="hljs-type">long</span> INF = (<span class="hljs-type">long</span> <span class="hljs-type">long</span>) <span class="hljs-number">3e18</span>L + <span class="hljs-number">5</span>;<br>cout &lt;&lt; <span class="hljs-built_in">Aliens</span>(<span class="hljs-number">0</span>, INF, k, [&amp;](<span class="hljs-type">long</span> <span class="hljs-type">long</span> cost) -&gt; pair&lt;<span class="hljs-type">long</span> <span class="hljs-type">long</span>, <span class="hljs-type">int</span>&gt; {<br>vector&lt;pair&lt;<span class="hljs-type">long</span> <span class="hljs-type">long</span>, <span class="hljs-type">int</span>&gt;&gt; <span class="hljs-built_in">dp</span>(n, pair&lt;<span class="hljs-type">long</span> <span class="hljs-type">long</span>, <span class="hljs-type">int</span>&gt;{INF, n});<br><span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; ++i) {<br><span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt;= i; ++j) {<br><span class="hljs-keyword">auto</span> cur = (j == <span class="hljs-number">0</span> ? pair&lt;<span class="hljs-type">long</span> <span class="hljs-type">long</span>, <span class="hljs-type">int</span>&gt;{<span class="hljs-number">0</span>, <span class="hljs-number">0</span>} : dp[j - <span class="hljs-number">1</span>]);<br>cur.first += (pref[i + <span class="hljs-number">1</span>] - pref[j]) * (pref[i + <span class="hljs-number">1</span>] - pref[j]) + cost;<br>cur.second += <span class="hljs-number">1</span>;<br>dp[i] = <span class="hljs-built_in">min</span>(dp[i], cur);<br>}<br>}<br><span class="hljs-keyword">return</span> dp[n - <span class="hljs-number">1</span>];<br>}) &lt;&lt; <span class="hljs-string">"\n"</span>;<br><span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>}<br></code></pre></td></tr></tbody></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>競程</category>
+      
+      <category>題解</category>
+      
+      <category>CSES</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Aliens 優化</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Codeforces 1780F Three Chairs 題解</title>
     <link href="/2023/01/27/Codeforces-1780F-Editorial/"/>
     <url>/2023/01/27/Codeforces-1780F-Editorial/</url>
@@ -115,11 +144,11 @@
     
     <tags>
       
+      <tag>並查集</tag>
+      
       <tag>線段樹</tag>
       
       <tag>矩陣快速冪</tag>
-      
-      <tag>並查集</tag>
       
     </tags>
     
