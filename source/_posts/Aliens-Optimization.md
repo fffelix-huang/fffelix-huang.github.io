@@ -62,7 +62,7 @@ long long Aliens(long long l, long long r, int k, Func f) {
 
 ## 例題
 
-底下的例題 $dp$ 應該要是 {最大/最小值, 最少操作次數}，方便起見只寫最大/最小值，實作時記得要計算操作次數。
+底下的例題 $dp$ 應該要是 {最大/最小值, 最少操作次數}，方便起見只寫最大/最小值，實作時記得要計算操作次數。$\Phi$ 為每筆操作而外收的手續費。
 
 > [AI-666 賺多少](https://tioj.ck.tp.edu.tw/problems/2039)
 >
@@ -70,7 +70,7 @@ long long Aliens(long long l, long long r, int k, Func f) {
 
 本題有 greedy 解，但我們練習用 Aliens 優化來做。
 
-$f(k)$ 是凹函數，因為如果第 $k$ 筆交易的獲益比第 $k - 1$ 次多，我們可以交換交易的順序，把 $k - 1$ 多做的那次換成 $k$ 多做的那次。
+定義 $f(k)$ 為做 $k$ 次交易的最大收益。可以觀察到 $f$ 是凹函數，因為如果第 $k$ 筆交易的獲益比第 $k - 1$ 次多，我們可以交換交易的順序，把 $k - 1$ 多做的那次換成 $k$ 多做的那次。
 
 定義 $dp$：
 
@@ -80,14 +80,14 @@ $f(k)$ 是凹函數，因為如果第 $k$ 筆交易的獲益比第 $k - 1$ 次�
 轉移就會是：
 
 \begin{aligned}
-dp_0[i] &= \max(dp_0[i - 1], dp_1[i - 1] + a[i] - p) \\\\
+dp_0[i] &= \max(dp_0[i - 1], dp_1[i - 1] + a[i] - \Phi) \\\\
 dp_1[i] &= \max(dp_1[i - 1], dp_0[i - 1] - a[i])
 \end{aligned}
 
-計算一次 $dp$ 的時間為 $O(n)$，因此總時間複雜度為 $O(n \log C)$ (C 是 Aliens 二分搜的範圍)。
+計算一次 $dp$ 的時間為 $O(n)$，因此總時間複雜度為 $O(n \log C)$ (以下皆用 $C$ 表示 Aliens 二分搜的範圍)。
 
 <details><summary>Solution Code</summary>
-```cpp=
+```cpp
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -136,12 +136,81 @@ int main() {
 ```
 </details>
 
+> [CSES - Subarray Squares](https://cses.fi/problemset/task/2086)
+>
+> 把長度為 $n$ 的數列切成 $k$ 段，一段的費用是和的平方，求最小費用和？
+
+定義 $f(k)$ 為切成 $k$ 段的最小費用和。固定切割的位置，切割的先後順序不會影響答案，我們可以讓影響最小的那次切割作為第 $k$ 次，因此 $f$ 是一個凸函數。
+
+定義 $dp[i]$ 為只考慮前 $i$ 個數字的最小費用和，轉移就會是：
+
+$$dp[i] = \min_{j \leq i} (dp[j - 1] + (\sum_{k = j}^{i} a[i])^2 + \Phi)$$
+
+注意轉移裡的 $\Phi$ 係數為正，因為我們的目標是找最小值。
+
+時間複雜度：$O(n^2 \log C)$
+
+<details><summary>Solution Code</summary>
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+// find minimum
+template<class Func>
+long long Aliens(long long l, long long r, int k, Func f) {
+	while(l < r) {
+		long long m = l + (r - l) / 2;
+		auto [score, op] = f(m);
+		if(op == k) {
+			return score - m * k;
+		}
+		if(op < k) {
+			r = m;
+		} else {
+			l = m + 1;
+		}
+	}
+	return f(l).first - l * k;
+}
+
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(0);
+	int n, k;
+	cin >> n >> k;
+	vector<int> a(n);
+	for(int i = 0; i < n; ++i) {
+		cin >> a[i];
+	}
+	vector<long long> pref(n + 1);
+	for(int i = 0; i < n; ++i) {
+		pref[i + 1] = pref[i] + a[i];
+	}
+	const long long INF = (long long) 1e18L + 5;
+	auto f = [&](long long cost) -> pair<long long, int> {
+		vector<pair<long long, int>> dp(n, pair<long long, int>{INF, 0});
+		for(int i = 0; i < n; ++i) {
+			for(int j = i; j >= 0; --j) {
+				auto cur = (j > 0 ? dp[j - 1] : pair<long long, int>{0, 0});
+				cur.first += (pref[i + 1] - pref[j]) * (pref[i + 1] - pref[j]) + cost;
+				cur.second += 1;
+				dp[i] = min(dp[i], cur);
+			}
+		}
+		return dp[n - 1];
+	};
+	cout << Aliens(0, INF, k, f) << "\n";
+	return 0;
+}
+```
+</details>
+
 ## 習題
 [ZJ - 美食博覽會 (k 值加大版)](https://zerojudge.tw/ShowProblem?problemid=h926)
-[CSES - Subarray Squares](https://cses.fi/problemset/task/2086)
 [CSES - Houses and Schools](https://cses.fi/problemset/task/2087/)
 [CF - New Year and Handle Change](https://codeforces.com/contest/1279/problem/F)
 [TIOJ - 郵局設置問題 $\infty$ EXTREME](https://tioj.ck.tp.edu.tw/problems/1986)
+[IOI 2016 - Aliens](https://ioinformatics.org/files/ioi2016problem6.pdf)
 
 # Reference
 
