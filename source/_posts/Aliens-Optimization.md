@@ -140,8 +140,8 @@ int main() {
 [ZJ - 美食博覽會 (k 值加大版)](https://zerojudge.tw/ShowProblem?problemid=h926)
 [CSES - Subarray Squares](https://cses.fi/problemset/task/2086)
 [CSES - Houses and Schools](https://cses.fi/problemset/task/2087/)
-[TIOJ - 郵局設置問題 $\infty$ EXTREME](https://tioj.ck.tp.edu.tw/problems/1986)
 [CF - New Year and Handle Change](https://codeforces.com/contest/1279/problem/F)
+[TIOJ - 郵局設置問題 $\infty$ EXTREME](https://tioj.ck.tp.edu.tw/problems/1986)
 
 # Reference
 
