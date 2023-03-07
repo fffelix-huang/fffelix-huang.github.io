@@ -6,3 +6,4 @@ banner_img_height: 40
 
 - [ ] 網路流建圖技巧與應用
 - [ ] 隨機演算法
+- [ ] IOI 2018 Werewolf
