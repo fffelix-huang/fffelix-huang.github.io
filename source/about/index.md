@@ -15,6 +15,7 @@ OJ帳號
 ---
 |日期|名稱|名次|成績|備註|
 |:---|:---|:---|:---|:---|
+| 2023-03-21 | CPE | 1 | 7題/7題 ||
 | 2022-12-13 | CPE | 1 | 7題/7題 ||
 | 2022-11-20 | 2022 ICPC Asia Taoyuan Regional Programming Contest | 25(銀牌) | 7題/13題 | 團體 |
 | 2022-10-22 | 2022 ICPC Asia Taiwan Online Programming Contest | 75 | 3題/9題 | 團體 |
