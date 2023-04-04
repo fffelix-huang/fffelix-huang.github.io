@@ -35,7 +35,7 @@ $$f(i) = \sum_{g = 1}^n [\lfloor \frac{n}{g} \rfloor \cdot g < i]$$
 先找出所有 $[L', R']$，在題目要求的區間 $[L, R]$ 加上值
 $[L', R']$ 只有 $O(\sqrt{n})$ 個，且公差 $d$ 增加的很快 (其實就是[調和級數](https://zh.wikipedia.org/zh-tw/%E8%B0%83%E5%92%8C%E7%BA%A7%E6%95%B0))
 
-時間複雜度為：$O(\sqrt{n} + (R - L) \log \sqrt{n})$
+時間複雜度為：$O(\sqrt{n} + (R - L) \log{\sqrt{n}})$
 
 <details><summary>Solution Code</summary>
 ```cpp
