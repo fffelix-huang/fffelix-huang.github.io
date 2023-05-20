@@ -1,5 +1,5 @@
 ---
-title: Atcoder Beginner Contest 256 A~H 題解
+title: ABC256 A~H 題解
 date: 2022-06-25 02:49:24
 categories: [競程, 題解, AtCoder]
 tags: [並查集, 線段樹, 矩陣快速冪]
