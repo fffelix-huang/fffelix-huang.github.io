@@ -1,5 +1,5 @@
 ---
-title: Aliens 優化應用
+title: Aliens 優化
 categories: [競程, 演算法]
 tags: [Aliens 優化]
 date: 2023-03-17 12:06:45
