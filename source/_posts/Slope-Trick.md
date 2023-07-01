@@ -1,11 +1,15 @@
 ---
 title: Slope-Trick
-categories: [競程, 演算法]
-tags: [Slope Trick]
+categories:
+  - 競程
+  - 演算法
+tags:
+  - Slope Trick
 date: 2023-07-01 12:06:45
 index_img:
 banner_img:
 ---
+
 
 ## 介紹
 
