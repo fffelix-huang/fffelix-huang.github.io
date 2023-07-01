@@ -10,9 +10,9 @@ tags: [FFT, NTT]
 ## 題解
 
 先將字串轉換成多項式的形式表示($\text{"10011"} \to 1x^0 + 0x^1 + 0x^2 + 1x^3 + 1x^4$)。
-假設轉換成多項式 $a = \sum_{i = 0}^{n - 1} a_i \cdot x^i$，我們要求的是對於所有 $1 \leq k \leq n - 1$，$\sum_{i - j = k} a_i \cdot a_j$。
+假設轉換成多項式 $a = \sum\limits_{i = 0}^{n - 1} a_i \cdot x^i$，我們要求的是對於所有 $1 \leq k \leq n - 1$，$\sum\limits_{i - j = k} a_i \cdot a_j$。
 可以觀察到如果 $i - j = k$，那麼 $i + (n - 1 - j) = n - 1 + k$。
-建立 $a^\prime = \sum_{i = 0}^{n - 1} a_{n - 1 - i} \cdot x^i$，答案就會是多項式 $a$ 和 $a^\prime$ 的卷積 $P$，$k$ 的答案即為$[x^{n - 1 + k}]P$。
+建立 $a^\prime = \sum\limits_{i = 0}^{n - 1} a_{n - 1 - i} \cdot x^i$，答案就會是多項式 $a$ 和 $a^\prime$ 的卷積 $P$，$k$ 的答案即為$[x^{n - 1 + k}]P$。
 由於 $n \leq 10^5$，$O(n^2)$ 的多項式卷積會 TLE，可以使用 [FFT](https://oi-wiki.org/math/poly/fft/) 或是 [NTT](https://oi-wiki.org/math/poly/ntt/) 在 $O(n \log n)$ 求出。
 
 <details><summary>Solution Code</summary>

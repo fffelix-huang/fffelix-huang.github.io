@@ -45,6 +45,6 @@ $$
 
 可以發現後面那項其實就是在求有幾組 $i < j < k$ 滿足 $a_i < a_j < a_k$ 且 $a_i$ 和 $a_k$ 是 $d$ 的倍數，枚舉 $d$ 的倍數後可以輕易求出。
 
-莫比烏斯函數可以用[線性篩](https://oi-wiki.org/math/number-theory/sieve/#%E7%BA%BF%E6%80%A7%E7%AD%9B%E6%B3%95)在 $O(A)$ 求出，而所有倍數的個數為 $\sum_{d = 1}^{A} \lfloor \frac{A}{d} \rfloor \approx O(A \log A)$，總時間複雜度為 $O(n + A \log A)$。
+莫比烏斯函數可以用[線性篩](https://oi-wiki.org/math/number-theory/sieve/#%E7%BA%BF%E6%80%A7%E7%AD%9B%E6%B3%95)在 $O(A)$ 求出，而所有倍數的個數為 $\sum\limits_{d = 1}^{A} \lfloor \frac{A}{d} \rfloor \approx O(A \log A)$，總時間複雜度為 $O(n + A \log A)$。
 
 [Solution Code](https://codeforces.com/contest/1780/submission/190633405)

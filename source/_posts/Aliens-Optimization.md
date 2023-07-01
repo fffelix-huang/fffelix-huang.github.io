@@ -70,6 +70,9 @@ long long Aliens(long long l, long long r, int k, Func f) {
 > [AI-666 賺多少](https://tioj.ck.tp.edu.tw/problems/2039)
 >
 > 已知 $n$ 個時間點股票的價格，手上沒有股票的話才能買入，有股票才能賣出。求買賣 $k$ 次的最大利益？
+>
+> - $1 < n \leq 2 \cdot 10^6$
+> - $k \leq n$
 
 本題有 greedy 解，但我們練習用 Aliens 優化來做。
 
@@ -142,6 +145,8 @@ int main() {
 > [CSES - Subarray Squares](https://cses.fi/problemset/task/2086)
 >
 > 把長度為 $n$ 的數列切成 $k$ 段，一段的費用是和的平方，求最小費用和？
+>
+> - $1 \leq k \leq n \leq 3000$
 
 定義 $f(k)$ 為切成 $k$ 段的最小費用和。固定切割的位置，切割的先後順序不會影響答案，我們可以讓影響最小的那次切割作為第 $k$ 次，因此 $f$ 是一個凸函數。
 
@@ -208,14 +213,14 @@ int main() {
 ```
 </details>
 
-## 習題
+## Exercises
 [ZJ - 美食博覽會 (k 值加大版)](https://zerojudge.tw/ShowProblem?problemid=h926)
 [CSES - Houses and Schools](https://cses.fi/problemset/task/2087/)
 [CF - New Year and Handle Change](https://codeforces.com/contest/1279/problem/F)
 [TIOJ - 郵局設置問題 $\infty$ EXTREME](https://tioj.ck.tp.edu.tw/problems/1986)
 [IOI 2016 - Aliens](https://ioinformatics.org/files/ioi2016problem6.pdf)
 
-# Reference
+## References
 
 1. [[WiwiHo 的競程筆記] Aliens 優化](https://cp.wiwiho.me/aliens/)
 2. [[2016建中校內培訓講義] Aliens 優化](https://tioj.ck.tp.edu.tw/uploads/attachment/5/51/10.pdf)
