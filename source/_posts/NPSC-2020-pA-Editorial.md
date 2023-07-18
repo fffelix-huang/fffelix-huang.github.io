@@ -30,12 +30,12 @@ $$f(i) = \sum_{g = 1}^n [\lfloor \frac{n}{g} \rfloor \cdot g < i]$$
 可以發現我們要計算不同的 $f(i)$ 差別都只在於最右邊的 $\text{< }i$。此外，假設有兩個人編號 $x < y$，如果分成 $g$ 人一組時 $x$ 會變成邊緣人，那麼 $y$ 也會在分成 $g$ 人一組時變成邊緣人。因此對於所有的分組，假設 $g$ 人一組，我們都要找到最後一組 (第 $\lfloor \frac{n}{g} \rfloor$ 組) 的最後一個人 (編號為 $\lfloor \frac{n}{g} \rfloor \cdot g$ )，將他後面的所有人的邊緣值都 $+1$，可以運用差分的技巧 $O(1)$ 做區間加值。
 
 另外一個關鍵是左邊的 $d = \lfloor \frac{n}{g} \rfloor$ 只有 $O(\sqrt{n})$ 種不同的取值。我們可以運用[數論分塊](https://oi-wiki.org/math/number-theory/sqrt-decomposition/)的技巧，其中最小的 $b$ 使得 $\lfloor \frac{n}{a}\rfloor < \lfloor \frac{n}{b} \rfloor$ 就是 $b = \lfloor \frac{n}{\lfloor \frac{n}{a} \rfloor} \rfloor + 1$。因此，我們可以從 $a = 1$ 掃過 $O(\sqrt{n})$ 種 $\lfloor \frac{n}{a} \rfloor$ 不同的塊後到達 $n$。
-同時，$x \in [L', R']$ 且 $\lfloor \frac{n}{L'} \rfloor = \lfloor \frac{n}{R'} \rfloor$ 的所有 $\lfloor \frac{n}{x} \rfloor \cdot x$ 會形成等差數列 (因為 $\lfloor \frac{n}{x} \rfloor$ 都相同，相鄰的 $x$ 只相差 $1$)。利用這個特性我們只需要紀錄每個區間的首項 $\lfloor \frac{n}{L'} \rfloor \cdot L'$，末項 $\lfloor \frac{n}{R'} \rfloor \cdot R'$，公差 $\lfloor \frac{n}{L'} \rfloor$。
+同時，$x \in [L^\prime, R^\prime]$ 且 $\lfloor \frac{n}{L^\prime} \rfloor = \lfloor \frac{n}{R^\prime} \rfloor$ 的所有 $\lfloor \frac{n}{x} \rfloor \cdot x$ 會形成等差數列 (因為 $\lfloor \frac{n}{x} \rfloor$ 都相同，相鄰的 $x$ 只相差 $1$)。利用這個特性我們只需要紀錄每個區間的首項 $\lfloor \frac{n}{L^\prime} \rfloor \cdot L^\prime$，末項 $\lfloor \frac{n}{R^\prime} \rfloor \cdot R^\prime$，公差 $\lfloor \frac{n}{L^\prime} \rfloor$。
 
 ## 實作
 
-先找出所有 $[L', R']$，在題目要求的區間 $[L, R]$ 加上值
-$[L', R']$ 只有 $O(\sqrt{n})$ 個，且公差 $d$ 增加的很快 (其實就是[調和級數](https://zh.wikipedia.org/zh-tw/%E8%B0%83%E5%92%8C%E7%BA%A7%E6%95%B0))
+先找出所有 $[L^\prime, R^\prime]$，在題目要求的區間 $[L, R]$ 加上值。
+$[L^\prime, R^\prime]$ 只有 $O(\sqrt{n})$ 個，且公差 $d$ 增加的很快 (其實就是[調和級數](https://zh.wikipedia.org/zh-tw/%E8%B0%83%E5%92%8C%E7%BA%A7%E6%95%B0))
 
 時間複雜度為：$O(\sqrt{n} + (R - L) \log{\sqrt{n}})$
 

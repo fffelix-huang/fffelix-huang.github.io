@@ -67,7 +67,7 @@ long long Aliens(long long l, long long r, int k, Func f) {
 
 底下的例題 $dp$ 應該要是 {最大/最小值, 最少操作次數}，方便起見只寫最大/最小值，實作時記得要計算操作次數。$\Phi$ 為每筆操作而外收的手續費。
 
-> [AI-666 賺多少](https://tioj.ck.tp.edu.tw/problems/2039)
+> [TIOJ - AI-666 賺多少](https://tioj.ck.tp.edu.tw/problems/2039)
 >
 > 已知 $n$ 個時間點股票的價格，手上沒有股票的話才能買入，有股票才能賣出。求買賣 $k$ 次的最大利益？
 >
@@ -216,7 +216,7 @@ int main() {
 ## Exercises
 [ZJ - 美食博覽會 (k 值加大版)](https://zerojudge.tw/ShowProblem?problemid=h926)
 [CSES - Houses and Schools](https://cses.fi/problemset/task/2087/)
-[CF - New Year and Handle Change](https://codeforces.com/contest/1279/problem/F)
+[CF 1279F - New Year and Handle Change](https://codeforces.com/contest/1279/problem/F)
 [TIOJ - 郵局設置問題 $\infty$ EXTREME](https://tioj.ck.tp.edu.tw/problems/1986)
 [IOI 2016 - Aliens](https://ioinformatics.org/files/ioi2016problem6.pdf)
 

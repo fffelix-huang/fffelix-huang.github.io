@@ -108,7 +108,7 @@ int main() {
 
 ## Exercises
 
-> [C. Sonya and Problem Wihtout a Legend](https://codeforces.com/contest/713/problem/C)
+> [CF 713C - Sonya and Problem Wihtout a Legend](https://codeforces.com/contest/713/problem/C)
 >
 > 與例題 [CSES - Increasing Array II](https://cses.fi/problemset/task/2132) 大同小異，但要求嚴格遞增。
 
