@@ -7,7 +7,6 @@ index_img:
 banner_img:
 ---
 
-
 ## 介紹
 
 Slope Trick 是一種表示一種函數的方式，該函數滿足：
@@ -108,17 +107,10 @@ int main() {
 
 ## Exercises
 
-> [CF 713C - Sonya and Problem Wihtout a Legend](https://codeforces.com/contest/713/problem/C)
->
-> 與例題 [CSES - Increasing Array II](https://cses.fi/problemset/task/2132) 大同小異，但要求嚴格遞增。
-
-<details><summary>Solution</summary>
-把 $a_i$ 換成 $a_i - i$，就可以用非嚴格遞增的解法了。
-</details>
-
-> [ARC070 E - NarrowRectangles](https://atcoder.jp/contests/arc070/tasks/arc070_c)
+1. [CF 713C - Sonya and Problem Wihtout a Legend](https://codeforces.com/contest/713/problem/C)
+2. [ARC070 E - NarrowRectangles](https://atcoder.jp/contests/arc070/tasks/arc070_c)
 
 ## References
 
-[comment by ko_osaga](https://codeforces.com/blog/entry/47094?#comment-315161)
-[maspypy - Slope Trick](https://maspypy.com/slope-trick-1-%E8%A7%A3%E8%AA%AC%E7%B7%A8)
+1. [https://codeforces.com/blog/entry/47094?#comment-315161](https://codeforces.com/blog/entry/47094?#comment-315161)
+2. [maspypy - Slope Trick](https://maspypy.com/slope-trick-1-%E8%A7%A3%E8%AA%AC%E7%B7%A8)

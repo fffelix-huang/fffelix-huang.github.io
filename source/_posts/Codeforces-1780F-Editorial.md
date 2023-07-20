@@ -7,7 +7,6 @@ index_img:
 banner_img:
 ---
 
-
 [題目連結](https://codeforces.com/contest/1780/problem/F)
 
 ## 題目大意

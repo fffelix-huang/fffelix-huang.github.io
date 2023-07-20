@@ -136,7 +136,7 @@ int main() {
 		dp0.second = -dp0.second;
 		return dp0;
 	};
-	cout << Aliens(0, (int) 1e8, k, f) << "\n";
+	cout << Aliens(0, (int) 1E8, k, f) << "\n";
 	return 0;
 }
 ```
@@ -194,7 +194,7 @@ int main() {
 	for(int i = 0; i < n; ++i) {
 		pref[i + 1] = pref[i] + a[i];
 	}
-	const long long INF = (long long) 1e18L + 5;
+	const long long INF = (long long) 1E18L + 5;
 	auto f = [&](long long cost) -> pair<long long, int> {
 		vector<pair<long long, int>> dp(n, pair<long long, int>{INF, 0});
 		for(int i = 0; i < n; ++i) {
@@ -214,11 +214,11 @@ int main() {
 </details>
 
 ## Exercises
-[ZJ - 美食博覽會 (k 值加大版)](https://zerojudge.tw/ShowProblem?problemid=h926)
-[CSES - Houses and Schools](https://cses.fi/problemset/task/2087/)
-[CF 1279F - New Year and Handle Change](https://codeforces.com/contest/1279/problem/F)
-[TIOJ - 郵局設置問題 $\infty$ EXTREME](https://tioj.ck.tp.edu.tw/problems/1986)
-[IOI 2016 - Aliens](https://ioinformatics.org/files/ioi2016problem6.pdf)
+1. [ZJ - 美食博覽會 (k 值加大版)](https://zerojudge.tw/ShowProblem?problemid=h926)
+2. [CSES - Houses and Schools](https://cses.fi/problemset/task/2087/)
+3. [CF 1279F - New Year and Handle Change](https://codeforces.com/contest/1279/problem/F)
+4. [TIOJ - 郵局設置問題 $\infty$ EXTREME](https://tioj.ck.tp.edu.tw/problems/1986)
+5. [IOI 2016 - Aliens](https://ioinformatics.org/files/ioi2016problem6.pdf)
 
 ## References
 
