@@ -1,6 +1,6 @@
 ---
 title: IO 優化
-date: 2000-08-01 09:00:08
+date: 2023-08-01 09:00:08
 categories: [競程]
 tags: [IO 優化]
 index_img:
