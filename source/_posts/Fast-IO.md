@@ -30,7 +30,7 @@ int main() {
 
 int main() {
 	std::ios::sync_with_stdio(false);
-	cin.tie(0);
+	std::cin.tie(0);
 	int a;
 	std::cin >> a;
 	std::cout << a << "\n";
