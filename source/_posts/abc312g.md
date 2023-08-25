@@ -1,5 +1,5 @@
 ---
-title: ABC312 G - Avoid Straight Line 題解
+title: 【題解】ABC312 G - Avoid Straight Line
 date: 2023-08-05 01:13:07
 categories: [競程, 題解, AtCoder]
 tags:

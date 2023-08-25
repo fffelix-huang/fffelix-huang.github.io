@@ -1,7 +1,7 @@
 ---
-title: IO 優化
+title: 【筆記】IO 優化
 date: 2023-08-01 09:00:08
-categories: [競程]
+categories: [競程, 筆記]
 tags: [IO 優化]
 index_img:
 banner_img:
@@ -99,8 +99,8 @@ inline void output() {
 
 這是筆者在 tourist 的 [submission](https://codeforces.com/contest/1603/submission/133678384) 翻到的，並進行了微調。預設使用了 `fread/fwrite` 的組合。如果 OJ 不支援 `fread` 或是 `fwrite`，可以在 `get_char` 和 `put_char` 函式裡面去修改成 `getchar_unlocked/putchar_unlocked`。這個模板的好處是有 `#define cin fast_input` 和 `#define cout fast_output`，因此使用 `cin/cout` 的人可以直接把這段程式碼貼到最上方，不用對 `main` 去做修改 (甚至連關閉同步的那兩行都不用拿掉)，甚至支援 `__int128` 和讀到 EOF！另外筆者把整個包在 `namespace std` 下，並加上了 `#define istream FastInput` 和 `#define ostream FastOutput`，因此可以客製化 `struct` 的輸入輸出。
 
+<details><summary>tourist IO Code</summary>
 ```cpp
-// tourist IO
 // https://codeforces.com/contest/1603/submission/133678384
 namespace std {
 
@@ -271,6 +271,7 @@ static struct FastOutput {
 
 } // namespace std
 ```
+</details>
 
 tourist IO 也可以客製化 `struct` 的輸入輸出，與常見的寫法相同。
 
@@ -286,4 +287,4 @@ std::ostream& operator<<(std::ostream& out, std::pair<int, int> p) {
 
 ## References
 
-1. [tourist IO](https://codeforces.com/contest/1603/submission/133678384)
+- [tourist IO](https://codeforces.com/contest/1603/submission/133678384)

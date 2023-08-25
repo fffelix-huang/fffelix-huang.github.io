@@ -1,7 +1,7 @@
 ---
-title: 擴展歐幾里得算法 (Extended Euclidean Algorithm)
+title: 【筆記】擴展歐幾里得算法 (Extended Euclidean Algorithm)
 date: 2023-08-20 18:39:58
-categories: [競程, 演算法]
+categories: [競程, 筆記]
 tags: [數論]
 index_img:
 banner_img:
@@ -63,10 +63,10 @@ $$ax + my = \gcd(a, m) = 1$$
 因為 $my$ 是 $m$ 的倍數，因此 $ax + my \equiv ax \equiv 1 \pmod m$，$x$ 就是 $a$ 在模 $m$ 下的模逆元 $a^{-1}$！
 
 ## Exercises
-1. [UVA 10104 - Euclid Problem](https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1045)
-2. [Zerojudge a289: Modular Multiplicative Inverse](https://zerojudge.tw/ShowProblem?problemid=a289)
-3. [ABC315 G - Ai + Bj + Ck = X (1 <= i, j, k <= N)](https://atcoder.jp/contests/abc315/tasks/abc315_g)
+- [UVA 10104 - Euclid Problem](https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1045)
+- [Zerojudge a289: Modular Multiplicative Inverse](https://zerojudge.tw/ShowProblem?problemid=a289)
+- [ABC315 G - Ai + Bj + Ck = X (1 <= i, j, k <= N)](https://atcoder.jp/contests/abc315/tasks/abc315_g)
 
 ## References
 
-1. [CP-Algorithms - Extended Euclidean Algorithm](https://cp-algorithms.com/algebra/extended-euclid-algorithm.html)
+- [CP-Algorithms - Extended Euclidean Algorithm](https://cp-algorithms.com/algebra/extended-euclid-algorithm.html)

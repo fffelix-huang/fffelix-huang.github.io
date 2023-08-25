@@ -1,5 +1,5 @@
 ---
-title: ABC313 D - Odd or Even 題解
+title: 【題解】ABC313 D - Odd or Even
 date: 2023-08-05 21:28:56
 categories: [競程, 題解, AtCoder]
 tags: [互動題]

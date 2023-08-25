@@ -1,5 +1,5 @@
 ---
-title: NPSC 2020 pA 邊緣人 題解
+title: 【題解】NPSC 2020 pA 邊緣人
 categories: [競程, 題解, 其他]
 tags: [數論分塊, 差分]
 date: 2022-08-02 10:45:11

@@ -1,5 +1,5 @@
 ---
-title: ABC302 Ex - Ball Collector 題解
+title: 【題解】ABC302 Ex - Ball Collector
 date: 2023-05-21 01:36:33
 categories: [競程, 題解, AtCoder]
 tags: [並查集]

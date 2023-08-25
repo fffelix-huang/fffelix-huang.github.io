@@ -1,6 +1,6 @@
 ---
-title: Aliens 優化
-categories: [競程, 演算法]
+title: 【筆記】Aliens 優化
+categories: [競程, 筆記]
 tags: [Aliens 優化]
 date: 2023-03-17 12:06:45
 index_img:
@@ -214,15 +214,15 @@ int main() {
 </details>
 
 ## Exercises
-1. [ZJ - 美食博覽會 (k 值加大版)](https://zerojudge.tw/ShowProblem?problemid=h926)
-2. [CSES - Houses and Schools](https://cses.fi/problemset/task/2087/)
-3. [CF 1279F - New Year and Handle Change](https://codeforces.com/contest/1279/problem/F)
-4. [TIOJ - 郵局設置問題 $\infty$ EXTREME](https://tioj.ck.tp.edu.tw/problems/1986)
-5. [IOI 2016 - Aliens](https://ioinformatics.org/files/ioi2016problem6.pdf)
+- [ZJ - 美食博覽會 (k 值加大版)](https://zerojudge.tw/ShowProblem?problemid=h926)
+- [CSES - Houses and Schools](https://cses.fi/problemset/task/2087/)
+- [CF 1279F - New Year and Handle Change](https://codeforces.com/contest/1279/problem/F)
+- [TIOJ - 郵局設置問題 $\infty$ EXTREME](https://tioj.ck.tp.edu.tw/problems/1986)
+- [IOI 2016 - Aliens](https://ioinformatics.org/files/ioi2016problem6.pdf)
 
 ## References
 
-1. [[WiwiHo 的競程筆記] Aliens 優化](https://cp.wiwiho.me/aliens/)
-2. [[2016建中校內培訓講義] Aliens 優化](https://tioj.ck.tp.edu.tw/uploads/attachment/5/51/10.pdf)
+- [[WiwiHo 的競程筆記] Aliens 優化](https://cp.wiwiho.me/aliens/)
+- [[2016建中校內培訓講義] Aliens 優化](https://tioj.ck.tp.edu.tw/uploads/attachment/5/51/10.pdf)
 
 [^1]: 可以參考 Reference 1. 的 gif，其中藍色的函數就是 $g_p(k)$。

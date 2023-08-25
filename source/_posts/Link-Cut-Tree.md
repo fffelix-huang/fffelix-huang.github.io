@@ -1,7 +1,7 @@
 ---
-title: Link Cut Tree
+title: 【筆記】Link Cut Tree
 date: 2023-07-19 14:11:50
-categories: [競程, 資料結構]
+categories: [競程, 筆記]
 tags: [Link Cut Tree]
 index_img:
 banner_img:
@@ -32,7 +32,7 @@ Link Cut Tree 是一種資料結構，能夠動態維護樹/森林的聯通性�
 
 每棵輔助樹內部會按照節點在代表樹的深度 ($v$ 的深度為代表樹 $root$ 到 $v$ 的距離) 作為權值維護 Splay Tree。
 
-![](lct-01.png)
+![Link Cut Tree 範例](lct-01.png)
 
 
 左圖中紅色的邊為重邊，藍色的數字為節點的深度。
@@ -108,7 +108,7 @@ struct splay_node {
 
 `access(v)`：把 $v$ 到根結點的路徑設為重鏈。
 
-![](lct-02.png)
+![Access 函式示意圖](lct-02.png)
 
 注意到 $C$ 和 $H$ 之間的重邊不會被斷開。
 
@@ -118,7 +118,7 @@ struct splay_node {
 
 我們持續往上合併，直到重鏈連接到樹根。最後 $A$ 到 $F$ 形成一條重鏈，也就是他們在同一棵輔助樹中。最後我們再對 F 呼叫 `splay()`，讓 F 旋轉到輔助樹的樹根，此時 $F$ 沒有 parent。
 
-![](lct-03.gif)
+![Access 函式動畫](lct-03.gif)
 
 ```cpp=
 splay_node* access(splay_node* v) {
@@ -197,19 +197,19 @@ bool is_connected(splay_node* u, splay_node* v) {
 
 ## Exercises
 
-1. [Zerojudge b483. 史蒂芙的觀察日記](https://zerojudge.tw/ShowProblem?problemid=b483)
-2. [Zerojudge b486. 變態史考古](https://zerojudge.tw/ShowProblem?problemid=b486)
-3. [Zerojudge b487. 變態史考古 錯誤報導篇](https://zerojudge.tw/ShowProblem?problemid=b487)
-4. [Zerojudge e003. 樹形避難所 I](https://zerojudge.tw/ShowProblem?problemid=e003)
-5. [Zerojudge e004. 樹形避難所 II](https://zerojudge.tw/ShowProblem?problemid=e004)
-6. [Library Checker - Dynamic Tree Vertex Set Path Composite](https://judge.yosupo.jp/problem/dynamic_tree_vertex_set_path_composite)
-7. [SPOJ - DYNACON1 - Dynamic Tree Connectivity](https://www.spoj.com/problems/DYNACON1/)
-8. [CF 117E - Tree or not Tree](https://codeforces.com/contest/117/problem/E)
+- [Zerojudge b483. 史蒂芙的觀察日記](https://zerojudge.tw/ShowProblem?problemid=b483)
+- [Zerojudge b486. 變態史考古](https://zerojudge.tw/ShowProblem?problemid=b486)
+- [Zerojudge b487. 變態史考古 錯誤報導篇](https://zerojudge.tw/ShowProblem?problemid=b487)
+- [Zerojudge e003. 樹形避難所 I](https://zerojudge.tw/ShowProblem?problemid=e003)
+- [Zerojudge e004. 樹形避難所 II](https://zerojudge.tw/ShowProblem?problemid=e004)
+- [Library Checker - Dynamic Tree Vertex Set Path Composite](https://judge.yosupo.jp/problem/dynamic_tree_vertex_set_path_composite)
+- [SPOJ - DYNACON1 - Dynamic Tree Connectivity](https://www.spoj.com/problems/DYNACON1/)
+- [CF 117E - Tree or not Tree](https://codeforces.com/contest/117/problem/E)
 
 ## References
 
-1. [日月卦長的模板庫 - [ link-cut tree ] 動態樹教學+模板](http://sunmoon-template.blogspot.com/2015/11/link-cut-tree.html)
-2. [OI Wiki - Link Cut Tree](https://oi-wiki.org/ds/lct/)
-3. [USACO - Link Cut Tree](https://usaco.guide/adv/link-cut-tree?lang=cpp)
-4. [CF - Link-cut tree tutorial](https://codeforces.com/blog/entry/80383)
-5. [Link Cut Tree 優化 Dinic](https://zhuanlan.zhihu.com/p/51592593)
+- [日月卦長的模板庫 - [ link-cut tree ] 動態樹教學+模板](http://sunmoon-template.blogspot.com/2015/11/link-cut-tree.html)
+- [OI Wiki - Link Cut Tree](https://oi-wiki.org/ds/lct/)
+- [USACO - Link Cut Tree](https://usaco.guide/adv/link-cut-tree?lang=cpp)
+- [CF - Link-cut tree tutorial](https://codeforces.com/blog/entry/80383)
+- [Link Cut Tree 優化 Dinic](https://zhuanlan.zhihu.com/p/51592593)

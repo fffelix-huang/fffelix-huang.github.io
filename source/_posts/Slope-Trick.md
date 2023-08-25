@@ -1,6 +1,6 @@
 ---
-title: Slope Trick
-categories: [競程, 演算法]
+title: 【筆記】Slope Trick
+categories: [競程, 筆記]
 tags: [Slope Trick]
 date: 2023-07-01 12:06:45
 index_img:
@@ -23,7 +23,7 @@ Slope Trick 是一種表示一種函數的方式，該函數滿足：
 
 我們稱函數斜率改變的地方為分段點。紀錄分段點的 $x$ 座標，每次代表函數的斜率 $+1$。
 
-| ![slope-trickable-function-1](slope-trickable-function-1.png) | ![slope-trickable-function-2](slope-trickable-function-2.png) |
+| ![Slope Trickable Function 範例 1](slope-trickable-function-1.png) | ![Slope Trickable Function 範例 2](slope-trickable-function-2.png) |
 | :----: | :----: |
 | 分段點 = $[0]$ | 分段點 = $[-3, 2, 10, 10]$ |
 
@@ -107,10 +107,10 @@ int main() {
 
 ## Exercises
 
-1. [CF 713C - Sonya and Problem Wihtout a Legend](https://codeforces.com/contest/713/problem/C)
-2. [ARC070 E - NarrowRectangles](https://atcoder.jp/contests/arc070/tasks/arc070_c)
+- [CF 713C - Sonya and Problem Wihtout a Legend](https://codeforces.com/contest/713/problem/C)
+- [ARC070 E - NarrowRectangles](https://atcoder.jp/contests/arc070/tasks/arc070_c)
 
 ## References
 
-1. [https://codeforces.com/blog/entry/47094?#comment-315161](https://codeforces.com/blog/entry/47094?#comment-315161)
-2. [maspypy - Slope Trick](https://maspypy.com/slope-trick-1-%E8%A7%A3%E8%AA%AC%E7%B7%A8)
+- [https://codeforces.com/blog/entry/47094?#comment-315161](https://codeforces.com/blog/entry/47094?#comment-315161)
+- [maspypy - Slope Trick](https://maspypy.com/slope-trick-1-%E8%A7%A3%E8%AA%AC%E7%B7%A8)

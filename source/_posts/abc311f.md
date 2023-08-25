@@ -1,5 +1,5 @@
 ---
-title: ABC311 F - Yet Another Grid Task 題解
+title: 【題解】ABC311 F - Yet Another Grid Task
 date: 2023-08-05 13:43:49
 categories: [競程, 題解, AtCoder]
 tags: [DP]
