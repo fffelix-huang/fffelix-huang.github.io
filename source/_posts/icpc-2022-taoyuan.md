@@ -3,8 +3,8 @@ title: 【心得】2022 ICPC Asia Taoyuan Regional 心得
 date: 2022-11-20 16:48:37
 categories: [競程, 心得]
 tags: [心得]
-index_img:
-banner_img:
+index_img: /img/banner/icpc-2022-taoyuan.jpg
+banner_img: /img/banner/icpc-2022-taoyuan.jpg
 ---
 
 ## 11/19

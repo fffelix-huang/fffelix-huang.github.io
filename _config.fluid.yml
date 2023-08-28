@@ -241,7 +241,7 @@ custom_css:
 # 网页访问统计
 # Analysis of website visitors
 web_analytics:  # 网页访问统计
-  enable: true
+  enable: false
 
   # 遵循访客浏览器"请勿追踪"的设置，如果开启则不统计其访问
   # Follow the "Do Not Track" setting of the visitor's browser
@@ -511,7 +511,7 @@ index:
   # 自动截取文章摘要
   # Auto extract post
   auto_excerpt:
-    enable: false
+    enable: true
 
   # 打开文章的标签方式
   # The browser tag to open the post
@@ -581,7 +581,7 @@ post:
     # 浏览量计数
     # Number of visits
     views:
-      enable: true
+      enable: false
       # 统计数据来源
       # Data Source
       # Options: busuanzi | leancloud
@@ -950,7 +950,7 @@ about:
   banner_img: /img/forest02.jpg
   banner_img_height: 40
   banner_mask_alpha: 0.3
-  avatar: /img/jerry.png
+  avatar: /img/avatar.jpg
   name: "老鼠"
   intro: "我不會寫Code"
   # 更多图标可从 https://hexo.fluid-dev.com/docs/icon/ 查找，`class` 代表图标的 css class，添加 `qrcode` 后，图标不再是链接而是悬浮二维码

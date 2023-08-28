@@ -3,9 +3,11 @@ title: 【心得】2022 NCPC 校內賽心得
 date: 2022-09-18 16:21:47
 categories: [競程, 心得]
 tags: [心得]
-index_img:
-banner_img:
+index_img: /img/banner/ncpc-2022-pre.jpg
+banner_img: /img/banner/ncpc-2022-pre.jpg
 ---
+
+## 前言
 
 比賽前又失眠了，三點才睡著，八點半就爬起來但是卻意外的有精神。
 
@@ -15,10 +17,10 @@ banner_img:
 
 因為沒有準備 Codebook，所以直接用 [BBQube](https://github.com/brianbbsu/8BQube) 的，但好多我們根本不會的模板 QQ。
 
+## 比賽
+
 [題本連結](https://drive.google.com/file/d/1UqtLTLxI16I2fuTF4bv4pdcLh0ixmlnd/view)
 [題解](https://hackmd.io/@redleaf23477/nthu-ncpc-pre-2022)
-
-## 比賽
 
 開場我先打 default code，游承桓跟林立上先讀題目。
 
