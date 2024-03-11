@@ -1,3 +1,4 @@
+https://fffelix-huang.github.io/posts/ubuntu-volume-button-disappear/
 https://fffelix-huang.github.io/todo/index.html
 https://fffelix-huang.github.io/google2810bddfbcabce82.html
 https://fffelix-huang.github.io/about/index.html
@@ -36,6 +37,7 @@ https://fffelix-huang.github.io/tags/Link-Cut-Tree/
 https://fffelix-huang.github.io/tags/%E6%95%B8%E8%AB%96%E5%88%86%E5%A1%8A/
 https://fffelix-huang.github.io/tags/%E5%B7%AE%E5%88%86/
 https://fffelix-huang.github.io/tags/Slope-Trick/
+https://fffelix-huang.github.io/tags/Ubuntu/
 https://fffelix-huang.github.io/categories/%E7%AB%B6%E7%A8%8B/
 https://fffelix-huang.github.io/categories/%E7%AB%B6%E7%A8%8B/%E9%A1%8C%E8%A7%A3/
 https://fffelix-huang.github.io/categories/%E7%AB%B6%E7%A8%8B/%E9%A1%8C%E8%A7%A3/AtCoder/
@@ -45,3 +47,4 @@ https://fffelix-huang.github.io/categories/%E7%AB%B6%E7%A8%8B/%E9%A1%8C%E8%A7%A3
 https://fffelix-huang.github.io/categories/%E9%9B%9C%E9%A0%85/
 https://fffelix-huang.github.io/categories/%E7%AB%B6%E7%A8%8B/%E5%BF%83%E5%BE%97/
 https://fffelix-huang.github.io/categories/%E7%AB%B6%E7%A8%8B/%E9%A1%8C%E8%A7%A3/%E5%85%B6%E4%BB%96/
+https://fffelix-huang.github.io/categories/Ubuntu/

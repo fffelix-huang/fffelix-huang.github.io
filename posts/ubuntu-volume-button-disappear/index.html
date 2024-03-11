@@ -18,25 +18,24 @@
   <meta name="author" content="老鼠">
   <meta name="keywords" content="">
   
-    <meta name="description" content="前言最近在看狂賭之淵，其中第二季第四集中提到「吉爾布雷斯洗牌法」，因為覺得蠻有趣的因此特別寫這篇文章紀錄。 吉爾布雷斯洗牌法以下我們用動漫中的例子。 這副牌由 $0 \sim 3$ 組成，一共 $40$ 張，牌的初始順序為 $0, 1, 2, 3, 0, 1, 2, 3, \dots, 0, 1, 2, 3$。洗牌的過程一共有三個步驟：  進行切牌，切牌的位置與次數並不重要。 隨機取 $X &#x3D; 1">
+    <meta name="description" content="今天不知道不小心動了什麼東西導致音量控制的按鈕消失，畫面如下圖  此情況甚至連鍵盤快捷鍵 Fn + 右鍵 都沒辦法控制音量。 爬了很多文章甚至重新灌了 kernel 都沒有解決問題，後來發現了一個簡單的指令就能讓它顯示。 打開 terminal 打上以下指令 1pulseaudio --start  大功告成！">
 <meta property="og:type" content="article">
-<meta property="og:title" content="狂賭之淵中的吉爾布雷斯洗牌法 (Gilbreath&#39;s Shuffle)">
-<meta property="og:url" content="https://fffelix-huang.github.io/posts/gilbreath-shuffle/index.html">
+<meta property="og:title" content="Ubuntu 22.04 音量控制按鈕消失解決方法">
+<meta property="og:url" content="https://fffelix-huang.github.io/posts/ubuntu-volume-button-disappear/index.html">
 <meta property="og:site_name" content="每日關心笨老鼠燒雞日常">
-<meta property="og:description" content="前言最近在看狂賭之淵，其中第二季第四集中提到「吉爾布雷斯洗牌法」，因為覺得蠻有趣的因此特別寫這篇文章紀錄。 吉爾布雷斯洗牌法以下我們用動漫中的例子。 這副牌由 $0 \sim 3$ 組成，一共 $40$ 張，牌的初始順序為 $0, 1, 2, 3, 0, 1, 2, 3, \dots, 0, 1, 2, 3$。洗牌的過程一共有三個步驟：  進行切牌，切牌的位置與次數並不重要。 隨機取 $X &#x3D; 1">
+<meta property="og:description" content="今天不知道不小心動了什麼東西導致音量控制的按鈕消失，畫面如下圖  此情況甚至連鍵盤快捷鍵 Fn + 右鍵 都沒辦法控制音量。 爬了很多文章甚至重新灌了 kernel 都沒有解決問題，後來發現了一個簡單的指令就能讓它顯示。 打開 terminal 打上以下指令 1pulseaudio --start  大功告成！">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://fffelix-huang.github.io/img/banner/gilbreath-shuffle.jpg">
-<meta property="article:published_time" content="2023-08-28T08:58:33.000Z">
-<meta property="article:modified_time" content="2024-02-01T10:02:10.769Z">
+<meta property="og:image" content="https://fffelix-huang.github.io/img/banner/ubuntu-volume-button-disappear.png">
+<meta property="article:published_time" content="2024-03-10T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-03-11T09:03:16.587Z">
 <meta property="article:author" content="老鼠">
-<meta property="article:tag" content="動漫">
-<meta property="article:tag" content="吉爾布雷斯洗牌法">
+<meta property="article:tag" content="Ubuntu">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://fffelix-huang.github.io/img/banner/gilbreath-shuffle.jpg">
+<meta name="twitter:image" content="https://fffelix-huang.github.io/img/banner/ubuntu-volume-button-disappear.png">
   
   
   
-  <title>狂賭之淵中的吉爾布雷斯洗牌法 (Gilbreath&#39;s Shuffle) - 每日關心笨老鼠燒雞日常</title>
+  <title>Ubuntu 22.04 音量控制按鈕消失解決方法 - 每日關心笨老鼠燒雞日常</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -226,13 +225,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/banner/gilbreath-shuffle.jpg') no-repeat center center; background-size: cover;">
+     style="background: url('/img/default.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="狂賭之淵中的吉爾布雷斯洗牌法 (Gilbreath&#39;s Shuffle)"></span>
+            <span id="subtitle" data-typed-text="Ubuntu 22.04 音量控制按鈕消失解決方法"></span>
           
         </div>
 
@@ -243,8 +242,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-08-28 16:58" pubdate>
-          August 28, 2023 pm
+        <time datetime="2024-03-11 00:00" pubdate>
+          March 11, 2024 am
         </time>
       </span>
     
@@ -255,7 +254,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          983 words
+          140 words
         
       </span>
     
@@ -266,7 +265,7 @@
         
         
         
-          9 mins
+          2 mins
         
       </span>
     
@@ -304,31 +303,20 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">狂賭之淵中的吉爾布雷斯洗牌法 (Gilbreath&#39;s Shuffle)</h1>
+            <h1 style="display: none">Ubuntu 22.04 音量控制按鈕消失解決方法</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在看狂賭之淵，其中第二季第四集中提到「吉爾布雷斯洗牌法」，因為覺得蠻有趣的因此特別寫這篇文章紀錄。</p>
-<h2 id="吉爾布雷斯洗牌法"><a href="#吉爾布雷斯洗牌法" class="headerlink" title="吉爾布雷斯洗牌法"></a>吉爾布雷斯洗牌法</h2><p>以下我們用動漫中的例子。</p>
-<p>這副牌由 $0 \sim 3$ 組成，一共 $40$ 張，牌的初始順序為 $0, 1, 2, 3, 0, 1, 2, 3, \dots, 0, 1, 2, 3$。洗牌的過程一共有三個步驟：</p>
-<ol>
-<li>進行切牌，切牌的位置與次數並不重要。</li>
-<li>隨機取 $X = 1 \sim 40$，並將前 $X$ 張牌的順序反過來分成一堆，剩下的 $40 - X$ 分成另外一堆。</li>
-<li>將這兩堆牌進行交疊洗牌 (不是完美的交疊洗牌也沒關係)。</li>
-</ol>
-<p>這樣洗牌的結果會是每 $4$ 張牌都會包含 $0 \sim 3$ 各一張。</p>
-<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>聽起來非常的神奇，為什麼會有這個現象呢？我們對洗牌的過程進行分析。</p>
-<p>首先，切牌後牌的順序會變成以下四種情況之一：</p>
-<p>a. $0, 1, 2, 3, \dots, 0, 1, 2, 3$<br>b. $3, 0, 1, 2, \dots, 3, 0, 1, 2$<br>c. $2, 3, 0, 1, \dots, 2, 3, 0, 1$<br>d. $1, 2, 3, 0, \dots, 1, 2, 3, 0$</p>
-<p>這四種情況都維持「每 $4$ 張牌都會包含 $0 \sim 3$ 各一張」的這個性質。因此不失一般性我們可以假設切牌次數為 $0$。</p>
-<p>步驟 $2$ 和 $3$ 我們一起看。將 $X$ 張牌順序反過來放一堆，因此這 $X$ 張牌的頭是原本的尾，並與另外一堆進行交疊洗牌。因為交疊洗牌每次都是取兩堆的頭，而其中一堆的頭是原牌序的尾，因此等價於「在初始排序中，每次從牌頭或牌尾取一張牌並按照取走的順序排好，直到取完」。又因為初始的排序其實可以看成是一個循環 (以 a. 來說最後面的 $3$ 接到最前面的 $0$)，因此在原牌序中不論是取頭或取尾，取走的牌都會對應到循環中一段連續的區間。因此不管怎麼取，連續的 $4$ 張牌都一定會包含 $0 \sim 3$ 各一張。</p>
-<p>綜上所述，吉爾布雷斯洗牌法能夠成立的先決條件是牌的初始順序。在動漫中，每次發牌都是使用新的一副牌，因此初始順序是固定的。</p>
-<h2 id="應用"><a href="#應用" class="headerlink" title="應用"></a>應用</h2><p>有兩間工廠 A 和 B 生產同一件產品，而生產又分為四個步驟。某天兩間工廠打算合作，A 工廠按照 $1, 2, 3, 4$ 的順序進行，B 工廠反過來按照 $4, 3, 2, 1$ 的順序進行。按照上述的原理每四個步驟必定包含 $1 \sim 4$ 各一個，符合經濟效益。</p>
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://forum.gamer.com.tw/C.php?bsn=43189&amp;snA=192">【閒聊】談第二季第四集中出現的 Gilbreath’s principle</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.scimonth.com.tw/archives/5791">【科學月刊】有趣的撲克牌小魔術 - 吉爾布雷斯法則之應用</a></li>
-</ul>
+                <p>今天不知道不小心動了什麼東西導致音量控制的按鈕消失，畫面如下圖</p>
+<p><img src="/posts/ubuntu-volume-button-disappear/ubuntu-volume-button-disappear.png" srcset="/img/loading.gif" lazyload alt="Ubuntu 音量控制按鈕消失"></p>
+<p>此情況甚至連鍵盤快捷鍵 <code>Fn + 右鍵</code> 都沒辦法控制音量。</p>
+<p>爬了很多文章甚至重新灌了 kernel 都沒有解決問題，後來發現了一個簡單的指令就能讓它顯示。</p>
+<p>打開 terminal 打上以下指令</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pulseaudio --start<br></code></pre></td></tr></tbody></table></figure>
+
+<p>大功告成！</p>
+<p><img src="/posts/ubuntu-volume-button-disappear/ubuntu-volume-button-appear.png" srcset="/img/loading.gif" lazyload alt="Ubuntu 音量控制按鈕出現"></p>
 
                 
               </div>
@@ -347,7 +335,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E9%9B%9C%E9%A0%85/" class="category-chain-item">雜項</a>
+  <a href="/categories/Ubuntu/" class="category-chain-item">Ubuntu</a>
   
   
 
@@ -362,9 +350,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%8B%95%E6%BC%AB/">#動漫</a>
-      
-        <a href="/tags/%E5%90%89%E7%88%BE%E5%B8%83%E9%9B%B7%E6%96%AF%E6%B4%97%E7%89%8C%E6%B3%95/">#吉爾布雷斯洗牌法</a>
+        <a href="/tags/Ubuntu/">#Ubuntu</a>
       
     </div>
   
@@ -376,8 +362,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>狂賭之淵中的吉爾布雷斯洗牌法 (Gilbreath&#39;s Shuffle)</div>
-      <div>https://fffelix-huang.github.io/posts/gilbreath-shuffle/</div>
+      <div>Ubuntu 22.04 音量控制按鈕消失解決方法</div>
+      <div>https://fffelix-huang.github.io/posts/ubuntu-volume-button-disappear/</div>
     </div>
     <div class="license-meta">
       
@@ -389,7 +375,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>August 28, 2023</div>
+          <div>March 11, 2024</div>
         </div>
       
       
@@ -433,18 +419,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/ubuntu-volume-button-disappear/" title="Ubuntu 22.04 音量控制按鈕消失解決方法">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Ubuntu 22.04 音量控制按鈕消失解決方法</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/extended-euclidean-algorithm/" title="【筆記】擴展歐幾里得算法 (Extended Euclidean Algorithm)">
-                        <span class="hidden-mobile">【筆記】擴展歐幾里得算法 (Extended Euclidean Algorithm)</span>
+                      <a href="/posts/gilbreath-shuffle/" title="狂賭之淵中的吉爾布雷斯洗牌法 (Gilbreath&#39;s Shuffle)">
+                        <span class="hidden-mobile">狂賭之淵中的吉爾布雷斯洗牌法 (Gilbreath&#39;s Shuffle)</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
