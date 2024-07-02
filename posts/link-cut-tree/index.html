@@ -1,0 +1,830 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/jerry.png">
+  <link rel="icon" href="/img/jerry.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="老鼠">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="引入Link Cut Tree 是一種資料結構，能夠動態維護樹&#x2F;森林的聯通性和一些路徑上的操作和查詢。  請你維護一些森林，並進行以下操作 (強制在線)：  修改 $u, v$ 路徑上的權值 查詢 $u, v$ 路徑上的權值和 在 $u, v$ 之間連邊 (保證連邊之前 $u, v$ 不連通) 斷開 $u, v$ 之間的邊   單看 1 和 2 的話就是輕重鏈剖分的模板題。現在加上了連邊和斷邊的操">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【筆記】Link Cut Tree">
+<meta property="og:url" content="https://fffelix-huang.github.io/posts/link-cut-tree/index.html">
+<meta property="og:site_name" content="每日關心笨老鼠燒雞日常">
+<meta property="og:description" content="引入Link Cut Tree 是一種資料結構，能夠動態維護樹&#x2F;森林的聯通性和一些路徑上的操作和查詢。  請你維護一些森林，並進行以下操作 (強制在線)：  修改 $u, v$ 路徑上的權值 查詢 $u, v$ 路徑上的權值和 在 $u, v$ 之間連邊 (保證連邊之前 $u, v$ 不連通) 斷開 $u, v$ 之間的邊   單看 1 和 2 的話就是輕重鏈剖分的模板題。現在加上了連邊和斷邊的操">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://fffelix-huang.github.io/posts/link-cut-tree/lct-01.png">
+<meta property="og:image" content="https://fffelix-huang.github.io/posts/link-cut-tree/lct-02.png">
+<meta property="og:image" content="https://fffelix-huang.github.io/posts/link-cut-tree/lct-03.gif">
+<meta property="article:published_time" content="2023-07-19T06:11:50.000Z">
+<meta property="article:modified_time" content="2024-05-13T18:13:35.419Z">
+<meta property="article:author" content="老鼠">
+<meta property="article:tag" content="Link Cut Tree">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://fffelix-huang.github.io/posts/link-cut-tree/lct-01.png">
+  
+  
+  
+  <title>【筆記】Link Cut Tree - 每日關心笨老鼠燒雞日常</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"fffelix-huang.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":80,"cursorChar":"▌","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"YJhOd1SBlajjqHlQuTN78YXa-MdYXbMMI","app_key":"s9x5Y15rgeCyY4PVwoRSUjS4","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Weak Mouse</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/todo/">
+                <i class="iconfont icon-plan"></i>
+                <span>Todo</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://fffelix-huang.github.io/CP-stuff/">
+                <i class="iconfont icon-books"></i>
+                <span>Library</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【筆記】Link Cut Tree"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-07-19 14:11" pubdate>
+          July 19, 2023 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          34 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【筆記】Link Cut Tree</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><p>Link Cut Tree 是一種資料結構，能夠動態維護樹/森林的聯通性和一些路徑上的操作和查詢。</p>
+<blockquote>
+<p>請你維護一些森林，並進行以下操作 (強制在線)：</p>
+<ol>
+<li>修改 $u, v$ 路徑上的權值</li>
+<li>查詢 $u, v$ 路徑上的權值和</li>
+<li>在 $u, v$ 之間連邊 (保證連邊之前 $u, v$ 不連通)</li>
+<li>斷開 $u, v$ 之間的邊</li>
+</ol>
+</blockquote>
+<p>單看 1 和 2 的話就是輕重鏈剖分的模板題。現在加上了連邊和斷邊的操作，這部分是輕重鍊剖分無法快速維護的。話雖如此，我們可以沿用它的精神，重新定義樹鏈，並用不同的方式維護。</p>
+<h2 id="鏈的維護"><a href="#鏈的維護" class="headerlink" title="鏈的維護"></a>鏈的維護</h2><p>在 Link Cut Tree 中，每一條邊的狀態是根據最後一次的操作決定的。假設最後一次操作節點 $v$，則我們會把 $root$ 到 $v$ 的路徑設為重鏈。因此，每個節點 $v$ 最多只有一條連向自己兒子的重邊。我們稱這條邊為 $v$ 的 preferred edge，連到的子孫為 $v$ 的 preferred child。每一條鏈我們都用一棵 Splay Tree 維護，具體的維護方式會在等下提到。</p>
+<p>我們先來定義一些名詞：</p>
+<ul>
+<li>代表樹：原本的樹。</li>
+<li>輔助樹：維護鏈的 Splay Tree。</li>
+<li>path parent：重鏈在代表樹中深度最小節點的父節點。</li>
+<li>parent：節點在輔助樹中的父節點。</li>
+</ul>
+<p>每棵輔助樹內部會按照節點在代表樹的深度 ($v$ 的深度為代表樹 $root$ 到 $v$ 的距離) 作為權值維護 Splay Tree。</p>
+<p><img src="/posts/link-cut-tree/lct-01.png" srcset="/img/loading.gif" lazyload alt="Link Cut Tree 範例"></p>
+<p>左圖中紅色的邊為重邊，藍色的數字為節點的深度。</p>
+<p>右圖中由黑色的邊連起來的節點為一棵輔助樹。每一棵輔助樹滿足二元搜尋樹的性質。輔助樹之間被橘色的邊連起來，由輔助樹的 $root$ 連向 path parent。以 $EF$ 這條鏈來說，$E$ 是代表樹中深度最淺的點，path parent 為 $D$。因此 $EF$ 輔助樹的 $root$ $F$ 連向 $D$。</p>
+<p>Splay Tree 中核心的操作為 <code>splay()</code>，把節點透過左旋和右旋移動到根結點，並保持二元搜尋樹的性質。<code>splay()</code> 操作的時間複雜度均攤為 $O(\log n)$。當我們在對 Splay Tree 旋轉的時候連向 path parent 的邊也要一起維護。</p>
+<p>以下的程式碼為 Splay Tree 一些關鍵的函式。<code>rev</code> 變數為反轉的懶人標記。</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">splay_node</span> {<br>	splay_node* l = <span class="hljs-literal">nullptr</span>;<br>	splay_node* r = <span class="hljs-literal">nullptr</span>;<br>	splay_node* p = <span class="hljs-literal">nullptr</span>;<br>	<span class="hljs-type">bool</span> rev = <span class="hljs-literal">false</span>;<br><br>	<span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">is_root</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>{ <span class="hljs-keyword">return</span> p == <span class="hljs-literal">nullptr</span> || (p-&gt;l != <span class="hljs-keyword">this</span> &amp;&amp; p-&gt;r != <span class="hljs-keyword">this</span>); }<br><br>	<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">push</span><span class="hljs-params">()</span> </span>{<br>		<span class="hljs-keyword">if</span>(rev) {<br>			std::<span class="hljs-built_in">swap</span>(l, r);<br>			<span class="hljs-keyword">if</span>(l != <span class="hljs-literal">nullptr</span>) {<br>				l-&gt;rev ^= <span class="hljs-number">1</span>;<br>			}<br>			<span class="hljs-keyword">if</span>(r != <span class="hljs-literal">nullptr</span>) {<br>				r-&gt;rev ^= <span class="hljs-number">1</span>;<br>			}<br>			rev = <span class="hljs-literal">false</span>;<br>		}<br>	}<br><br>	<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">rotate</span><span class="hljs-params">()</span> </span>{<br>		<span class="hljs-keyword">auto</span> g = p-&gt;p;<br>		<span class="hljs-keyword">if</span>(!p-&gt;<span class="hljs-built_in">is_root</span>()) {<br>			(g-&gt;r == p ? g-&gt;r : g-&gt;l) = <span class="hljs-keyword">this</span>;<br>		}<br>		p-&gt;<span class="hljs-built_in">push</span>();<br>		<span class="hljs-built_in">push</span>();<br>		<span class="hljs-keyword">if</span>(p-&gt;l == <span class="hljs-keyword">this</span>) {<br>			p-&gt;l = r;<br>			r = p;<br>			<span class="hljs-keyword">if</span>(p-&gt;l != <span class="hljs-literal">nullptr</span>) {<br>				p-&gt;l-&gt;p = p;<br>			}<br>		} <span class="hljs-keyword">else</span> {<br>			p-&gt;r = l;<br>			l = p;<br>			<span class="hljs-keyword">if</span>(p-&gt;r != <span class="hljs-literal">nullptr</span>) {<br>				p-&gt;r-&gt;p = p;<br>			}<br>		}<br>		p-&gt;p = <span class="hljs-keyword">this</span>;<br>		p = g;<br>	}<br><br>	<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">splay</span><span class="hljs-params">()</span> </span>{<br>		<span class="hljs-keyword">while</span> (!<span class="hljs-built_in">is_root</span>()) {<br>			<span class="hljs-keyword">auto</span> g = p-&gt;p;<br>			<span class="hljs-keyword">if</span>(!p-&gt;<span class="hljs-built_in">is_root</span>()) {<br>				((g-&gt;r == p) == (p-&gt;r == <span class="hljs-keyword">this</span>) ? p : <span class="hljs-keyword">this</span>)-&gt;<span class="hljs-built_in">rotate</span>();<br>			}<br>			<span class="hljs-built_in">rotate</span>();<br>		}<br>		<span class="hljs-built_in">push</span>();<br>	}<br>};<br></code></pre></td></tr></tbody></table></figure>
+
+<p>因為一棵輔助樹只有根結點需要存這條鏈的 path parent，程式碼中的變數 <code>p</code> 與 path parent 共用。<code>is_root()</code> 函式的實作方式也稍有不同，如果 <code>p</code> 沒有指向自己的話代表這個 <code>p</code> 是 path parent (右圖中橘色的邊)，否則是 Splay Tree 中的 parent (右圖中黑色的邊)。因此輔助樹的 $root$ 的 <code>p</code> 會有找不到自己兒子的情況。</p>
+<h2 id="Link-Cut-Tree-函式"><a href="#Link-Cut-Tree-函式" class="headerlink" title="Link Cut Tree 函式"></a>Link Cut Tree 函式</h2><p><code>access(v)</code>：把 $v$ 到根結點的路徑設為重鏈。</p>
+<p><img src="/posts/link-cut-tree/lct-02.png" srcset="/img/loading.gif" lazyload alt="Access 函式示意圖"></p>
+<p>注意到 $C$ 和 $H$ 之間的重邊不會被斷開。</p>
+<p>先對 $F$ 呼叫 <code>splay()</code> 旋轉到 $EF$ 輔助樹的樹根。因為 $F$ 是最後操作的節點，根據定義他沒有 preferred child，所以要把 $F$ 在輔助樹的右兒子斷開 (因為輔助樹按照節點在代表樹的深度維護，$F$ 在輔助樹中右子樹節點在代表樹中的深度都比 $F$ 深)。</p>
+<p>此時 $F$ 變成輔助樹的樹根，他的 path parent 是 $D$。我們要把 $D$ 的 preferred child 變成 $E$，相當於在輔助樹中將 $D$ 的右兒子設成 $E$ 所在的輔助樹的根結點 $F$。先把 $D$ <code>splay()</code> 到 $DG$ 輔助樹的樹根，然後把右兒子斷開並連到 $F$。這樣我們就成功合併兩棵輔助樹，相當於合併成一條重鏈，並且輔助樹維持二元搜尋樹的性質。</p>
+<p>我們持續往上合併，直到重鏈連接到樹根。最後 $A$ 到 $F$ 形成一條重鏈，也就是他們在同一棵輔助樹中。最後我們再對 F 呼叫 <code>splay()</code>，讓 F 旋轉到輔助樹的樹根，此時 $F$ 沒有 parent。</p>
+<p><img src="/posts/link-cut-tree/lct-03.gif" srcset="/img/loading.gif" lazyload alt="Access 函式動畫"></p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function">splay_node* <span class="hljs-title">access</span><span class="hljs-params">(splay_node* v)</span> </span>{<br>	splay_node* last = <span class="hljs-literal">nullptr</span>;<br>	<span class="hljs-keyword">for</span>(splay_node* p = v; p != <span class="hljs-literal">nullptr</span>; p = p-&gt;p) {<br>		p-&gt;<span class="hljs-built_in">splay</span>();<br>		p-&gt;r = last;<br>		last = p;<br>	}<br>	v-&gt;<span class="hljs-built_in">splay</span>();<br>	<span class="hljs-keyword">return</span> last;<br>}<br></code></pre></td></tr></tbody></table></figure>
+
+<p>有了 <code>access(v)</code> 的核心操作之後，剩下的操作就簡單很多了。</p>
+<p><code>make_root(v)</code>：把 $v$ 設定為代表樹中的樹根。</p>
+<p>我們先呼叫 <code>access(v)</code>，讓根結點到 $v$ 成為一條鏈，此時 $v$ 是這條鏈中最深的節點，並且位於輔助樹的樹根。我們對 $v$ 打反轉的懶人標記，這樣 $v$ 就變成這條鏈中深度最淺的節點，也就變成樹根了！</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">make_root</span><span class="hljs-params">(splay_node* v)</span> </span>{<br>	<span class="hljs-built_in">access</span>(v);<br>	v-&gt;rev ^= <span class="hljs-number">1</span>;<br>}<br></code></pre></td></tr></tbody></table></figure>
+
+<p><code>link(u, v)</code>：在 $u, v$ 之間連一條邊。</p>
+<p>先呼叫 <code>make_root(v)</code>，讓 $v$ 變成他代表樹的根結點，接著直接把他的 path parent 設為 $u$。</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">link</span><span class="hljs-params">(splay_node* u, splay_node* v)</span> </span>{<br>	<span class="hljs-built_in">make_root</span>(v);<br>	v-&gt;p = u;<br>}<br></code></pre></td></tr></tbody></table></figure>
+
+<p><code>cut(u, v)</code>：切斷連接 $u, v$ 的邊。</p>
+<p>先呼叫 <code>make_root(u)</code>，讓 $u$ 變成代表樹的樹根。接著再呼叫 <code>access(v)</code>，讓 $u, v$ 形成一條長度為 $1$ 的重鏈，且因為 $v$ 是最後 <code>access</code> 的點，所以他位於輔助樹的樹根，左邊的兒子是 $u$。最後直接移除 $v$ 的左兒子，和把 $u$ 的 parent 設為 <code>null</code> ($u$ 的 parent 也要移除，否則只是讓 $v$ 變成 $u$ 的 path parent)。</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">cut</span><span class="hljs-params">(splay_node* u, splay_node* v)</span> </span>{<br>	<span class="hljs-built_in">make_root</span>(u);<br>	<span class="hljs-built_in">access</span>(v);<br>	v-&gt;l-&gt;p = <span class="hljs-literal">nullptr</span>;<br>	v-&gt;l = <span class="hljs-literal">nullptr</span>;<br>}<br></code></pre></td></tr></tbody></table></figure>
+
+<p><code>is_connected(u, v)</code>：回傳 $u, v$ 是否連通。</p>
+<p>先呼叫 <code>access(u)</code>，讓根結點到 $u$ 成為一條鏈，且 $u$ 為這條鏈輔助樹的樹根，因此 $u$ 沒有 parent。這時候再呼叫 <code>access(v)</code>，這時候 $v$ 也沒有 parent。因為一棵代表樹中只有根結點所在的輔助樹樹根會沒有 parent。如果 $u$ 在 <code>access(v)</code> 後變成有 parent，就代表 $u, v$ 在同一棵代表樹上，也就是連通。</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">is_connected</span><span class="hljs-params">(splay_node* u, splay_node* v)</span> </span>{<br>	<span class="hljs-built_in">access</span>(u);<br>	<span class="hljs-built_in">access</span>(v);<br>	<span class="hljs-keyword">return</span> u-&gt;p != <span class="hljs-literal">nullptr</span>;<br>}<br></code></pre></td></tr></tbody></table></figure>
+
+<h2 id="優化-Dinic"><a href="#優化-Dinic" class="headerlink" title="優化 Dinic"></a>優化 Dinic</h2><p>我們可以使用 Link Cut Tree 來優化 Dinic，達到 $O(VE \log V)$ 的時間複雜度。有 $4$ 種操作可以用 Link Cut Tree 進行優化：</p>
+<ol>
+<li>加邊：增廣時加邊直到 source 跟 sink 連通。</li>
+<li>求路徑最小值：尋找增廣路徑中剩餘流量最小的邊。</li>
+<li>路徑修改：把增廣路上的 capacity 全部減少增廣的流量</li>
+<li>刪邊：刪掉 capacity 為 $0$ 的邊</li>
+</ol>
+<p>以上 $4$ 種操作都能夠以 Link Cut Tree 維護。</p>
+<p>雖然用 Link Cut Tree 的理論時間複雜度較優，但實際上因為常數頗大，除非範圍很大，否則執行時間不會比較快。</p>
+<h2 id="Exercises"><a href="#Exercises" class="headerlink" title="Exercises"></a>Exercises</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://zerojudge.tw/ShowProblem?problemid=b483">Zerojudge b483. 史蒂芙的觀察日記</a></li>
+<li><a target="_blank" rel="noopener" href="https://zerojudge.tw/ShowProblem?problemid=b486">Zerojudge b486. 變態史考古</a></li>
+<li><a target="_blank" rel="noopener" href="https://zerojudge.tw/ShowProblem?problemid=b487">Zerojudge b487. 變態史考古 錯誤報導篇</a></li>
+<li><a target="_blank" rel="noopener" href="https://zerojudge.tw/ShowProblem?problemid=e003">Zerojudge e003. 樹形避難所 I</a></li>
+<li><a target="_blank" rel="noopener" href="https://zerojudge.tw/ShowProblem?problemid=e004">Zerojudge e004. 樹形避難所 II</a></li>
+<li><a target="_blank" rel="noopener" href="https://judge.yosupo.jp/problem/dynamic_tree_vertex_set_path_composite">Library Checker - Dynamic Tree Vertex Set Path Composite</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.spoj.com/problems/DYNACON1/">SPOJ - DYNACON1 - Dynamic Tree Connectivity</a></li>
+<li><a target="_blank" rel="noopener" href="https://codeforces.com/contest/117/problem/E">CF 117E - Tree or not Tree</a></li>
+</ul>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://sunmoon-template.blogspot.com/2015/11/link-cut-tree.html">日月卦長的模板庫 - [ link-cut tree ] 動態樹教學+模板</a></li>
+<li><a target="_blank" rel="noopener" href="https://oi-wiki.org/ds/lct/">OI Wiki - Link Cut Tree</a></li>
+<li><a target="_blank" rel="noopener" href="https://usaco.guide/adv/link-cut-tree?lang=cpp">USACO - Link Cut Tree</a></li>
+<li><a target="_blank" rel="noopener" href="https://codeforces.com/blog/entry/80383">CF - Link-cut tree tutorial</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/51592593">Link Cut Tree 優化 Dinic</a></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%AB%B6%E7%A8%8B/" class="category-chain-item">競程</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%AB%B6%E7%A8%8B/%E7%AD%86%E8%A8%98/" class="category-chain-item">筆記</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Link-Cut-Tree/">#Link Cut Tree</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>【筆記】Link Cut Tree</div>
+      <div>https://fffelix-huang.github.io/posts/link-cut-tree/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>老鼠</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>July 19, 2023</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - Non-commercial">
+                    <i class="iconfont icon-nc"></i>
+                  </span>
+                </a>
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - Share-alike">
+                    <i class="iconfont icon-sa"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/fast-io/" title="【筆記】IO 優化">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【筆記】IO 優化</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/slope-trick/" title="【筆記】Slope Trick">
+                        <span class="hidden-mobile">【筆記】Slope Trick</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>

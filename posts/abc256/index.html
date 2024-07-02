@@ -1,0 +1,816 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/jerry.png">
+  <link rel="icon" href="/img/jerry.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="老鼠">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="前言這次在賽後補完了 F、G、H，覺得題目不錯，所以來寫個題解吧 A - 2^N直接乘以 $n$ 次，或是使用 $&lt;&lt;$ 的位元運算。 時間複雜度：$O(n)$ 或 $O(1)$ Solution Code B - Batters從索引比較高的往回更新。 時間複雜度：$O(n)$ Solution Code C - Filling 3x3 array枚舉左上角四格的所有組合，並判斷剩下">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【題解】ABC256 A~H">
+<meta property="og:url" content="https://fffelix-huang.github.io/posts/abc256/index.html">
+<meta property="og:site_name" content="每日關心笨老鼠燒雞日常">
+<meta property="og:description" content="前言這次在賽後補完了 F、G、H，覺得題目不錯，所以來寫個題解吧 A - 2^N直接乘以 $n$ 次，或是使用 $&lt;&lt;$ 的位元運算。 時間複雜度：$O(n)$ 或 $O(1)$ Solution Code B - Batters從索引比較高的往回更新。 時間複雜度：$O(n)$ Solution Code C - Filling 3x3 array枚舉左上角四格的所有組合，並判斷剩下">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-06-24T18:49:24.000Z">
+<meta property="article:modified_time" content="2024-05-13T18:13:35.418Z">
+<meta property="article:author" content="老鼠">
+<meta property="article:tag" content="線段樹">
+<meta property="article:tag" content="矩陣快速冪">
+<meta property="article:tag" content="並查集">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>【題解】ABC256 A~H - 每日關心笨老鼠燒雞日常</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"fffelix-huang.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":80,"cursorChar":"▌","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"YJhOd1SBlajjqHlQuTN78YXa-MdYXbMMI","app_key":"s9x5Y15rgeCyY4PVwoRSUjS4","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Weak Mouse</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/todo/">
+                <i class="iconfont icon-plan"></i>
+                <span>Todo</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://fffelix-huang.github.io/CP-stuff/">
+                <i class="iconfont icon-books"></i>
+                <span>Library</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【題解】ABC256 A~H"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-06-25 02:49" pubdate>
+          June 25, 2022 am
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          17 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【題解】ABC256 A~H</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>這次在賽後補完了 F、G、H，覺得題目不錯，所以來寫個題解吧</p>
+<h2 id="A-2-N"><a href="#A-2-N" class="headerlink" title="A - 2^N"></a><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc256/tasks/abc256_a">A - 2^N</a></h2><p>直接乘以 $n$ 次，或是使用 $&lt;&lt;$ 的位元運算。</p>
+<p>時間複雜度：$O(n)$ 或 $O(1)$</p>
+<p><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc256/submissions/32694745">Solution Code</a></p>
+<h2 id="B-Batters"><a href="#B-Batters" class="headerlink" title="B - Batters"></a><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc256/tasks/abc256_b">B - Batters</a></h2><p>從索引比較高的往回更新。</p>
+<p>時間複雜度：$O(n)$</p>
+<p><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc256/submissions/32694755">Solution Code</a></p>
+<h2 id="C-Filling-3x3-array"><a href="#C-Filling-3x3-array" class="headerlink" title="C - Filling 3x3 array"></a><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc256/tasks/abc256_c">C - Filling 3x3 array</a></h2><p>枚舉左上角四格的所有組合，並判斷剩下的數字是否合理。</p>
+<p>時間複雜度：$O(30^4)$</p>
+<p><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc256/submissions/32694818">Solution Code</a></p>
+<h2 id="D-Union-of-Interval"><a href="#D-Union-of-Interval" class="headerlink" title="D - Union of Interval"></a><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc256/tasks/abc256_d">D - Union of Interval</a></h2><p>對線段的左端點排序，判斷與下一個線段有無相交。若有重疊則進行合併。</p>
+<p>時間複雜度：$O(n \log n)$</p>
+<p><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc256/submissions/32694847">Solution Code</a></p>
+<h2 id="E-Takahashi’s-Anguish"><a href="#E-Takahashi’s-Anguish" class="headerlink" title="E - Takahashi’s Anguish"></a><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc256/tasks/abc256_e">E - Takahashi’s Anguish</a></h2><p>考慮一張無向圖 $G$，節點代表 $n$ 個人，我們連接邊 $i \leftrightarrow X_i$ 代表 $i$ 比 $X_i$ 早拿到禮物。因此如果圖中存在環，代表拿到禮物的先後順序矛盾。因此，題目可化簡為在 $G$ 加入一些邊，使得這些邊不會形成環且權重和越大(代表我們避免掉越多的 frustration)，剩下的邊的權重和(無法避免掉的)就是題目所求。因此，我們可以用並查集維護無向圖中的連通塊，並把邊按照權重由大到小嘗試加入 $G$。</p>
+<p>時間複雜度：$O(n \alpha(n))$</p>
+<p><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc256/submissions/37711907">Solution Code</a></p>
+<h2 id="F-Cumulative-Cumulative-Cumulative-Sum"><a href="#F-Cumulative-Cumulative-Cumulative-Sum" class="headerlink" title="F - Cumulative Cumulative Cumulative Sum"></a><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc256/tasks/abc256_f">F - Cumulative Cumulative Cumulative Sum</a></h2><p>先來將 $A, B, C$ 數列展開觀察</p>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">i = 1</th>
+<th align="center">i = 2</th>
+<th align="center">i = 3</th>
+<th align="center">i = 4</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">$A$</td>
+<td align="center">$A_1$</td>
+<td align="center">$A_2$</td>
+<td align="center">$A_3$</td>
+<td align="center">$A_4$</td>
+</tr>
+<tr>
+<td align="center">$B$</td>
+<td align="center">$A_1$</td>
+<td align="center">$A_1 + A_2$</td>
+<td align="center">$A_1 + A_2 + A_3$</td>
+<td align="center">$A_1 + A_2 + A_3 + A_4$</td>
+</tr>
+<tr>
+<td align="center">$C$</td>
+<td align="center">$A_1$</td>
+<td align="center">$2 \cdot A_1 + A_2$</td>
+<td align="center">$3 \cdot A_1 + 2 \cdot A_2 + A_3$</td>
+<td align="center">$4 \cdot A_1 + 3 \cdot A_2 + 2 \cdot A_3 + A_4$</td>
+</tr>
+</tbody></table>
+<p>所要求的 $D_x$ 就是 $C$ 的前綴和 $\sum\limits_{i = 1}^x C_i$<br>而 $C$ 數列有個特性，當我們將 $A_i$ 增加 $K$，$A_{i + 1}$ 要增加 $2K$，$A_{i + 2}$ 增加 $3K$，以此類推。因此我們需要可以區間更新和區間加總的資料結構，可以用線段樹 + 懶人標記。簡化到這裡可以發現就跟<a target="_blank" rel="noopener" href="https://cses.fi/problemset/task/1736">這題</a>一模一樣。</p>
+<p>時間複雜度：$O(n \log n)$</p>
+<p><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc256/submissions/37712082">Solution Code</a></p>
+<h2 id="G-Black-and-White-Stones"><a href="#G-Black-and-White-Stones" class="headerlink" title="G - Black and White Stones"></a><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc256/tasks/abc256_g">G - Black and White Stones</a></h2><p>每個邊有 $d + 1$ 顆石頭。把每個邊的狀態列出來，可以發現一共有四種狀態：白頭白尾、白頭黑尾、黑頭白尾、黑頭黑尾。如果把狀態寫成矩陣：</p>
+<p>\begin{bmatrix}<br>  C_{WW} &amp; C_{WB} \\<br>  C_{BW} &amp; C_{BB}<br>\end{bmatrix}</p>
+<p>把 $n$ 條邊串在一起就是將矩陣相乘 $n$ 次，可以使用<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%B9%B3%E6%96%B9%E6%B1%82%E5%B9%82">矩陣快速冪</a>在 $O(\log n)$ 完成運算。由於第一邊個的頭和第 $n$ 個邊的尾必須相同(圖形為 $n$ 邊形)，對答案的貢獻為 $C_{WW} + C_{BB}$<br>利用上述的技巧，枚舉白石的數量 $W$，對應的矩陣為：</p>
+<p>\begin{bmatrix}<br>  \binom{d - 1}{W - 2} &amp; \binom{d - 1}{W - 1} \\<br>  \binom{d - 1}{W - 1} &amp; \binom{d - 1}{W}<br>\end{bmatrix}</p>
+<p>時間複雜度：$O(d \log n)$</p>
+<p><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc256/submissions/38152274">Solution Code</a></p>
+<h2 id="Ex-I-like-Query-Problem"><a href="#Ex-I-like-Query-Problem" class="headerlink" title="Ex - I like Query Problem"></a><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc256/tasks/abc256_h">Ex - I like Query Problem</a></h2><p>第二種操作：區間改值，可以運用線段樹 + 懶人標記 $O(\log n)$ 更新。</p>
+<p>第一種操作：這是本題最難的地方，由於更新後的加總無法直接計算出來，我們只能分段更新。把 $[L, R + 1)$ 拆成很多小區間 $[L, s_1), [s_1, s_2), [s_2, s_3), \dots [s_k, R + 1)$ 使得每一個小區間的數值都相同。這樣就能套用區間改值，把每個區間更新成 $\lfloor \frac{A_{s_i}}{x}\rfloor$。</p>
+<p>接下來我們要分析第一種操作的時間複雜度。在切成小區間時，只有包含最左邊和最右邊數值的兩個區間有可能被切開變成新的小區間。因此，我們最多有 $O(n + q)$ 個小區間。而對於一個小區間，能夠被除的次數不會超過 $O(\log \max(A))$ 次，所以總操作次數的上限為 $O((n + q) \log \max(A))$。而因為單一操作 (區間改值) 的時間複雜度為 $O(\log n)$，整體的時間複雜度為 $O((n + q) \log n \log \max (A))$</p>
+<p>第一種操作還能優化，改成分成很多個區間 $P_1, P_2, \dots P_K$ 使得 $\lfloor \frac{\min(P_i)}{x} \rfloor = \lfloor \frac{\max(P_i)}{x} \rfloor$，這樣區間的總數會更少，常數會比較小。</p>
+<p><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc256/submissions/37712592">Solution Code</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%AB%B6%E7%A8%8B/" class="category-chain-item">競程</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%AB%B6%E7%A8%8B/%E9%A1%8C%E8%A7%A3/" class="category-chain-item">題解</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%AB%B6%E7%A8%8B/%E9%A1%8C%E8%A7%A3/AtCoder/" class="category-chain-item">AtCoder</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%B7%9A%E6%AE%B5%E6%A8%B9/">#線段樹</a>
+      
+        <a href="/tags/%E7%9F%A9%E9%99%A3%E5%BF%AB%E9%80%9F%E5%86%AA/">#矩陣快速冪</a>
+      
+        <a href="/tags/%E4%B8%A6%E6%9F%A5%E9%9B%86/">#並查集</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>【題解】ABC256 A~H</div>
+      <div>https://fffelix-huang.github.io/posts/abc256/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>老鼠</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>June 25, 2022</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - Non-commercial">
+                    <i class="iconfont icon-nc"></i>
+                  </span>
+                </a>
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - Share-alike">
+                    <i class="iconfont icon-sa"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/npsc-2020-a/" title="【題解】NPSC 2020 pA 邊緣人">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【題解】NPSC 2020 pA 邊緣人</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,811 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/jerry.png">
+  <link rel="icon" href="/img/jerry.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="老鼠">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="基本概念有些題目要求進行 $k$ 次操作的最大&#x2F;最小值。我們開心的列出 $dp[i][j]$ 為前 $i$ 個東西進行 $j$ 次操作的最大值，答案就是 $dp[n][k]$，但很不幸的 $O(nk)$ 會超時，這時候我們或許能套用 Aliens 優化。 Definition. $f(k)$ 為進行 $k$ 次操作的最大值。 $f$ 必須是一個凹函數 (concave function) 才能套用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【筆記】Aliens 優化">
+<meta property="og:url" content="https://fffelix-huang.github.io/posts/aliens-optimization/index.html">
+<meta property="og:site_name" content="每日關心笨老鼠燒雞日常">
+<meta property="og:description" content="基本概念有些題目要求進行 $k$ 次操作的最大&#x2F;最小值。我們開心的列出 $dp[i][j]$ 為前 $i$ 個東西進行 $j$ 次操作的最大值，答案就是 $dp[n][k]$，但很不幸的 $O(nk)$ 會超時，這時候我們或許能套用 Aliens 優化。 Definition. $f(k)$ 為進行 $k$ 次操作的最大值。 $f$ 必須是一個凹函數 (concave function) 才能套用">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-03-17T04:06:45.000Z">
+<meta property="article:modified_time" content="2024-05-13T18:13:35.419Z">
+<meta property="article:author" content="老鼠">
+<meta property="article:tag" content="Aliens 優化">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>【筆記】Aliens 優化 - 每日關心笨老鼠燒雞日常</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"fffelix-huang.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":80,"cursorChar":"▌","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"YJhOd1SBlajjqHlQuTN78YXa-MdYXbMMI","app_key":"s9x5Y15rgeCyY4PVwoRSUjS4","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Weak Mouse</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/todo/">
+                <i class="iconfont icon-plan"></i>
+                <span>Todo</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://fffelix-huang.github.io/CP-stuff/">
+                <i class="iconfont icon-books"></i>
+                <span>Library</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【筆記】Aliens 優化"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-03-17 12:06" pubdate>
+          March 17, 2023 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.2k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          35 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【筆記】Aliens 優化</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>有些題目要求進行 $k$ 次操作的最大/最小值。我們開心的列出 $dp[i][j]$ 為前 $i$ 個東西進行 $j$ 次操作的最大值，答案就是 $dp[n][k]$，但很不幸的 $O(nk)$ 會超時，這時候我們或許能套用 Aliens 優化。</p>
+<p><strong>Definition.</strong> $f(k)$ 為進行 $k$ 次操作的最大值。</p>
+<p>$f$ 必須是一個凹函數 (concave function) 才能套用 Aliens 優化 (如果改成求最小值的話則必須是凸函數)。凹函數的斜率非嚴格遞減，也就是說每多進行一次操作，數值增加的幅度會越來越少。</p>
+<p>$$f(k + 1) - f(k) \leq f(k) - f(k - 1)$$</p>
+<p><strong>Lemma.</strong> 定義 $g_p(k) = f(k) - kp$，則 $g_p$ 也是凹函數。</p>
+<p><strong>Proof.</strong> 根據 $g_p$ 的定義，我們可以列出：</p>
+<p>\begin{aligned}<br>g_p(k + 1) - g_p(k) &amp;= (f(k + 1) - (k + 1)p) - (f(k) - kp) \\<br>&amp;= f(k + 1) - f(k) - p \\<br>&amp; \leq f(k) - f(k - 1) - p \\<br>&amp;= (f(k) - kp) - (f(k - 1) - (k - 1)p) \\<br>&amp;= g_p(k) - g_p(k - 1) \\<br>\iff g_p(k + 1) - g_p(k) &amp; \leq g_p(k) - g_p(k - 1)<br>\end{aligned}</p>
+<p>因此 $g_p$ 也是凹函數。</p>
+<p>$g_p(k) = f(k) - kp$ 可以想像成對於每筆操作，我們額外收取 $p$ 元的手續費。當 $p$ 越大，$g_p(k)$ 最大值發生的位置 $k$ 會越往左邊靠 (可以想成手續費太貴，所以不進行那麼多次操作)，當 $p$ 越小，最大值發生的位置會越往右靠 (手續費太便宜，多進行幾次操作不會虧錢)。<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="可以參考 Reference 1. 的 gif，其中藍色的函數就是 $g_p(k)$。">[1]</span></a></sup></p>
+<p>有了以上的概念，我們就可以對 $p$ 進行二分搜，讓 $g_p(k)$ 最大值發生的位置剛好落在 $k$，也就是操作 $k$ 次，這樣我們就可以回頭算出 $f(k) = g_p(k) + kp$ 了！如果 $f(k)$ 的定義改成最小值的話就改成 $g_p(k) = f(k) + kp$，也能用同樣的邏輯求出。</p>
+<p>其他實作的細節可以參考 <a href="#Reference">Reference</a> 的文章。</p>
+<h2 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h2><p>找最小值的話記得把 $+kp$ 改成 $-kp$。<br><code>Func f</code> 為一個函式，回傳值為 <code>{最大/最小值, 最少操作次數}</code>。</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">// 找最大值</span><br><span class="hljs-function"><span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">class</span> Func&gt;</span><br><span class="hljs-function"><span class="hljs-type">long</span> <span class="hljs-type">long</span> <span class="hljs-title">Aliens</span><span class="hljs-params">(<span class="hljs-type">long</span> <span class="hljs-type">long</span> l, <span class="hljs-type">long</span> <span class="hljs-type">long</span> r, <span class="hljs-type">int</span> k, Func f)</span> </span>{<br>	<span class="hljs-keyword">while</span>(l &lt; r) {<br>		<span class="hljs-type">long</span> <span class="hljs-type">long</span> m = l + (r - l) / <span class="hljs-number">2</span>;<br>		<span class="hljs-keyword">auto</span> [score, op] = <span class="hljs-built_in">f</span>(m);<br>		<span class="hljs-keyword">if</span>(op == k) {<br>			<span class="hljs-keyword">return</span> score + m * k;<br>		}<br>		<span class="hljs-keyword">if</span>(op &lt; k) {<br>			r = m;<br>		} <span class="hljs-keyword">else</span> {<br>			l = m + <span class="hljs-number">1</span>;<br>		}<br>	}<br>	<span class="hljs-keyword">return</span> <span class="hljs-built_in">f</span>(l).first + l * k;<br>}<br></code></pre></td></tr></tbody></table></figure>
+
+<h2 id="例題"><a href="#例題" class="headerlink" title="例題"></a>例題</h2><p>底下的例題 $dp$ 應該要是 {最大/最小值, 最少操作次數}，方便起見只寫最大/最小值，實作時記得要計算操作次數。$\Phi$ 為每筆操作而外收的手續費。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://tioj.ck.tp.edu.tw/problems/2039">TIOJ - AI-666 賺多少</a></p>
+<p>已知 $n$ 個時間點股票的價格，手上沒有股票的話才能買入，有股票才能賣出。求買賣 $k$ 次的最大利益？</p>
+<ul>
+<li>$1 &lt; n \leq 2 \cdot 10^6$</li>
+<li>$k \leq n$</li>
+</ul>
+</blockquote>
+<p>本題有 greedy 解，但我們練習用 Aliens 優化來做。</p>
+<p>定義 $f(k)$ 為做 $k$ 次交易的最大收益。可以觀察到 $f$ 是凹函數，因為如果第 $k$ 筆交易的獲益比第 $k - 1$ 次多，我們可以交換交易的順序，把 $k - 1$ 多做的那次換成 $k$ 多做的那次。</p>
+<p>定義 $dp$：</p>
+<ul>
+<li>$dp_0[i]$ = 時間 $i$ 時手上<strong>沒有</strong>股票的最大收益</li>
+<li>$dp_1[i]$ = 時間 $i$ 時手上<strong>持有</strong>股票的最大收益</li>
+</ul>
+<p>轉移就會是：</p>
+<p>\begin{aligned}<br>dp_0[i] &amp;= \max(dp_0[i - 1], dp_1[i - 1] + a[i] - \Phi) \\<br>dp_1[i] &amp;= \max(dp_1[i - 1], dp_0[i - 1] - a[i])<br>\end{aligned}</p>
+<p>計算一次 $dp$ 的時間為 $O(n)$，因此總時間複雜度為 $O(n \log C)$ (以下皆用 $C$ 表示 Aliens 二分搜的範圍)。</p>
+<details><summary>Solution Code</summary>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;bits/stdc++.h&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-comment">// find maximum</span><br><span class="hljs-function"><span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">class</span> Func&gt;</span><br><span class="hljs-function"><span class="hljs-type">long</span> <span class="hljs-type">long</span> <span class="hljs-title">Aliens</span><span class="hljs-params">(<span class="hljs-type">long</span> <span class="hljs-type">long</span> l, <span class="hljs-type">long</span> <span class="hljs-type">long</span> r, <span class="hljs-type">int</span> k, Func f)</span> </span>{<br>	<span class="hljs-keyword">while</span>(l &lt; r) {<br>		<span class="hljs-type">long</span> <span class="hljs-type">long</span> m = l + (r - l) / <span class="hljs-number">2</span>;<br>		<span class="hljs-keyword">auto</span> [score, op] = <span class="hljs-built_in">f</span>(m);<br>		<span class="hljs-keyword">if</span>(op == k) {<br>			<span class="hljs-keyword">return</span> score + m * k;<br>		}<br>		<span class="hljs-keyword">if</span>(op &lt; k) {<br>			r = m;<br>		} <span class="hljs-keyword">else</span> {<br>			l = m + <span class="hljs-number">1</span>;<br>		}<br>	}<br>	<span class="hljs-keyword">return</span> <span class="hljs-built_in">f</span>(l).first + l * k;<br>}<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{<br>	ios::<span class="hljs-built_in">sync_with_stdio</span>(<span class="hljs-literal">false</span>);<br>	cin.<span class="hljs-built_in">tie</span>(<span class="hljs-number">0</span>);<br>	<span class="hljs-type">int</span> n, k;<br>	cin &gt;&gt; n &gt;&gt; k;<br>	<span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">a</span><span class="hljs-params">(n)</span></span>;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; ++i) {<br>		cin &gt;&gt; a[i];<br>	}<br>	<span class="hljs-keyword">auto</span> f = [&amp;](<span class="hljs-type">long</span> <span class="hljs-type">long</span> p) {<br>		pair&lt;<span class="hljs-type">long</span> <span class="hljs-type">long</span>, <span class="hljs-type">int</span>&gt; dp0 = {<span class="hljs-number">0</span>, <span class="hljs-number">0</span>};<br>		pair&lt;<span class="hljs-type">long</span> <span class="hljs-type">long</span>, <span class="hljs-type">int</span>&gt; dp1 = {INT_MIN, <span class="hljs-number">0</span>};<br>		<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; ++i) {<br>			pair&lt;<span class="hljs-type">long</span> <span class="hljs-type">long</span>, <span class="hljs-type">int</span>&gt; new_dp0 = <span class="hljs-built_in">max</span>(dp0, pair&lt;<span class="hljs-type">long</span> <span class="hljs-type">long</span>, <span class="hljs-type">int</span>&gt;{dp1.first + a[i] - p, dp1.second - <span class="hljs-number">1</span>});<br>			pair&lt;<span class="hljs-type">long</span> <span class="hljs-type">long</span>, <span class="hljs-type">int</span>&gt; new_dp1 = <span class="hljs-built_in">max</span>(dp1, pair&lt;<span class="hljs-type">long</span> <span class="hljs-type">long</span>, <span class="hljs-type">int</span>&gt;{dp0.first - a[i], dp0.second});<br>			<span class="hljs-built_in">swap</span>(dp0, new_dp0);<br>			<span class="hljs-built_in">swap</span>(dp1, new_dp1);<br>		}<br>		dp0.second = -dp0.second;<br>		<span class="hljs-keyword">return</span> dp0;<br>	};<br>	cout &lt;&lt; <span class="hljs-built_in">Aliens</span>(<span class="hljs-number">0</span>, (<span class="hljs-type">int</span>) <span class="hljs-number">1E8</span>, k, f) &lt;&lt; <span class="hljs-string">"\n"</span>;<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>}<br></code></pre></td></tr></tbody></table></figure>
+</details>
+
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://cses.fi/problemset/task/2086">CSES - Subarray Squares</a></p>
+<p>把長度為 $n$ 的數列切成 $k$ 段，一段的費用是和的平方，求最小費用和？</p>
+<ul>
+<li>$1 \leq k \leq n \leq 3000$</li>
+</ul>
+</blockquote>
+<p>定義 $f(k)$ 為切成 $k$ 段的最小費用和。固定切割的位置，切割的先後順序不會影響答案，我們可以讓影響最小的那次切割作為第 $k$ 次，因此 $f$ 是一個凸函數。</p>
+<p>定義 $dp[i]$ 為只考慮前 $i$ 個數字的最小費用和，轉移就會是：</p>
+<p>$$dp[i] = \min_{j \leq i} (dp[j - 1] + (\sum_{k = j}^{i} a[i])^2 + \Phi)$$</p>
+<p>注意 $dp$ 轉移裡的 $\Phi$ 係數為正，因為我們的目標是找最小值。</p>
+<p>時間複雜度：$O(n^2 \log C)$</p>
+<details><summary>Solution Code</summary>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;bits/stdc++.h&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-comment">// find minimum</span><br><span class="hljs-function"><span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">class</span> Func&gt;</span><br><span class="hljs-function"><span class="hljs-type">long</span> <span class="hljs-type">long</span> <span class="hljs-title">Aliens</span><span class="hljs-params">(<span class="hljs-type">long</span> <span class="hljs-type">long</span> l, <span class="hljs-type">long</span> <span class="hljs-type">long</span> r, <span class="hljs-type">int</span> k, Func f)</span> </span>{<br>	<span class="hljs-keyword">while</span>(l &lt; r) {<br>		<span class="hljs-type">long</span> <span class="hljs-type">long</span> m = l + (r - l) / <span class="hljs-number">2</span>;<br>		<span class="hljs-keyword">auto</span> [score, op] = <span class="hljs-built_in">f</span>(m);<br>		<span class="hljs-keyword">if</span>(op == k) {<br>			<span class="hljs-keyword">return</span> score - m * k;<br>		}<br>		<span class="hljs-keyword">if</span>(op &lt; k) {<br>			r = m;<br>		} <span class="hljs-keyword">else</span> {<br>			l = m + <span class="hljs-number">1</span>;<br>		}<br>	}<br>	<span class="hljs-keyword">return</span> <span class="hljs-built_in">f</span>(l).first - l * k;<br>}<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{<br>	ios::<span class="hljs-built_in">sync_with_stdio</span>(<span class="hljs-literal">false</span>);<br>	cin.<span class="hljs-built_in">tie</span>(<span class="hljs-number">0</span>);<br>	<span class="hljs-type">int</span> n, k;<br>	cin &gt;&gt; n &gt;&gt; k;<br>	<span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">a</span><span class="hljs-params">(n)</span></span>;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; ++i) {<br>		cin &gt;&gt; a[i];<br>	}<br>	<span class="hljs-function">vector&lt;<span class="hljs-type">long</span> <span class="hljs-type">long</span>&gt; <span class="hljs-title">pref</span><span class="hljs-params">(n + <span class="hljs-number">1</span>)</span></span>;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; ++i) {<br>		pref[i + <span class="hljs-number">1</span>] = pref[i] + a[i];<br>	}<br>	<span class="hljs-type">const</span> <span class="hljs-type">long</span> <span class="hljs-type">long</span> INF = (<span class="hljs-type">long</span> <span class="hljs-type">long</span>) <span class="hljs-number">1E18</span>L + <span class="hljs-number">5</span>;<br>	<span class="hljs-keyword">auto</span> f = [&amp;](<span class="hljs-type">long</span> <span class="hljs-type">long</span> cost) -&gt; pair&lt;<span class="hljs-type">long</span> <span class="hljs-type">long</span>, <span class="hljs-type">int</span>&gt; {<br>		vector&lt;pair&lt;<span class="hljs-type">long</span> <span class="hljs-type">long</span>, <span class="hljs-type">int</span>&gt;&gt; <span class="hljs-built_in">dp</span>(n, pair&lt;<span class="hljs-type">long</span> <span class="hljs-type">long</span>, <span class="hljs-type">int</span>&gt;{INF, <span class="hljs-number">0</span>});<br>		<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; ++i) {<br>			<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j = i; j &gt;= <span class="hljs-number">0</span>; --j) {<br>				<span class="hljs-keyword">auto</span> cur = (j &gt; <span class="hljs-number">0</span> ? dp[j - <span class="hljs-number">1</span>] : pair&lt;<span class="hljs-type">long</span> <span class="hljs-type">long</span>, <span class="hljs-type">int</span>&gt;{<span class="hljs-number">0</span>, <span class="hljs-number">0</span>});<br>				cur.first += (pref[i + <span class="hljs-number">1</span>] - pref[j]) * (pref[i + <span class="hljs-number">1</span>] - pref[j]) + cost;<br>				cur.second += <span class="hljs-number">1</span>;<br>				dp[i] = <span class="hljs-built_in">min</span>(dp[i], cur);<br>			}<br>		}<br>		<span class="hljs-keyword">return</span> dp[n - <span class="hljs-number">1</span>];<br>	};<br>	cout &lt;&lt; <span class="hljs-built_in">Aliens</span>(<span class="hljs-number">0</span>, INF, k, f) &lt;&lt; <span class="hljs-string">"\n"</span>;<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>}<br></code></pre></td></tr></tbody></table></figure>
+</details>
+
+<h2 id="Exercises"><a href="#Exercises" class="headerlink" title="Exercises"></a>Exercises</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://zerojudge.tw/ShowProblem?problemid=h926">ZJ - 美食博覽會 (k 值加大版)</a></li>
+<li><a target="_blank" rel="noopener" href="https://cses.fi/problemset/task/2087/">CSES - Houses and Schools</a></li>
+<li><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1279/problem/F">CF 1279F - New Year and Handle Change</a></li>
+<li><a target="_blank" rel="noopener" href="https://tioj.ck.tp.edu.tw/problems/1986">TIOJ - 郵局設置問題 $\infty$ EXTREME</a></li>
+<li><a target="_blank" rel="noopener" href="https://ioinformatics.org/files/ioi2016problem6.pdf">IOI 2016 - Aliens</a></li>
+</ul>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://cp.wiwiho.me/aliens/">[WiwiHo 的競程筆記] Aliens 優化</a></li>
+<li><a target="_blank" rel="noopener" href="https://tioj.ck.tp.edu.tw/uploads/attachment/5/51/10.pdf">[2016建中校內培訓講義] Aliens 優化</a></li>
+</ul>
+<section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>可以參考 Reference 1. 的 gif，其中藍色的函數就是 $g_p(k)$。
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%AB%B6%E7%A8%8B/" class="category-chain-item">競程</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%AB%B6%E7%A8%8B/%E7%AD%86%E8%A8%98/" class="category-chain-item">筆記</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Aliens-%E5%84%AA%E5%8C%96/">#Aliens 優化</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>【筆記】Aliens 優化</div>
+      <div>https://fffelix-huang.github.io/posts/aliens-optimization/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>老鼠</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>March 17, 2023</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - Non-commercial">
+                    <i class="iconfont icon-nc"></i>
+                  </span>
+                </a>
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - Share-alike">
+                    <i class="iconfont icon-sa"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/abc302h/" title="【題解】ABC302 Ex - Ball Collector">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【題解】ABC302 Ex - Ball Collector</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/cf-1780f/" title="【題解】Codeforces 1780F Three Chairs">
+                        <span class="hidden-mobile">【題解】Codeforces 1780F Three Chairs</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>

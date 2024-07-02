@@ -1,0 +1,787 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/jerry.png">
+  <link rel="icon" href="/img/jerry.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="老鼠">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="前言比賽前又失眠了，三點才睡著，八點半就爬起來但是卻意外的有精神。 校內賽前我們只有線上 virtual 過一次 (而且還偷懶沒有打滿 $5$ 小時)，甚至到今天我才第一次見到隊友林立上本人。 有好多隊伍都有人確診或隔離沒辦法比賽，像李佳樺超可憐直接變成單刷，也讓我們晉級的機會變大？ 因為沒有準備 Codebook，所以直接用 BBQube 的，但好多我們根本不會的模板 QQ。 比賽題本連結題解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【心得】2022 NCPC 校內賽心得">
+<meta property="og:url" content="https://fffelix-huang.github.io/posts/ncpc-2022-pre/index.html">
+<meta property="og:site_name" content="每日關心笨老鼠燒雞日常">
+<meta property="og:description" content="前言比賽前又失眠了，三點才睡著，八點半就爬起來但是卻意外的有精神。 校內賽前我們只有線上 virtual 過一次 (而且還偷懶沒有打滿 $5$ 小時)，甚至到今天我才第一次見到隊友林立上本人。 有好多隊伍都有人確診或隔離沒辦法比賽，像李佳樺超可憐直接變成單刷，也讓我們晉級的機會變大？ 因為沒有準備 Codebook，所以直接用 BBQube 的，但好多我們根本不會的模板 QQ。 比賽題本連結題解">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://fffelix-huang.github.io/img/banner/ncpc-2022-pre.jpg">
+<meta property="article:published_time" content="2022-09-18T08:21:47.000Z">
+<meta property="article:modified_time" content="2024-05-13T18:13:35.421Z">
+<meta property="article:author" content="老鼠">
+<meta property="article:tag" content="心得">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://fffelix-huang.github.io/img/banner/ncpc-2022-pre.jpg">
+  
+  
+  
+  <title>【心得】2022 NCPC 校內賽心得 - 每日關心笨老鼠燒雞日常</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"fffelix-huang.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":80,"cursorChar":"▌","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"YJhOd1SBlajjqHlQuTN78YXa-MdYXbMMI","app_key":"s9x5Y15rgeCyY4PVwoRSUjS4","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Weak Mouse</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/todo/">
+                <i class="iconfont icon-plan"></i>
+                <span>Todo</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://fffelix-huang.github.io/CP-stuff/">
+                <i class="iconfont icon-books"></i>
+                <span>Library</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/banner/ncpc-2022-pre.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【心得】2022 NCPC 校內賽心得"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-09-18 16:21" pubdate>
+          September 18, 2022 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.9k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          16 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【心得】2022 NCPC 校內賽心得</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>比賽前又失眠了，三點才睡著，八點半就爬起來但是卻意外的有精神。</p>
+<p>校內賽前我們只有線上 virtual 過一次 (而且還偷懶沒有打滿 $5$ 小時)，甚至到今天我才第一次見到隊友林立上本人。</p>
+<p>有好多隊伍都有人確診或隔離沒辦法比賽，像李佳樺超可憐直接變成單刷，也讓我們晉級的機會變大？</p>
+<p>因為沒有準備 Codebook，所以直接用 <a target="_blank" rel="noopener" href="https://github.com/brianbbsu/8BQube">BBQube</a> 的，但好多我們根本不會的模板 QQ。</p>
+<h2 id="比賽"><a href="#比賽" class="headerlink" title="比賽"></a>比賽</h2><p><a target="_blank" rel="noopener" href="https://drive.google.com/file/d/1UqtLTLxI16I2fuTF4bv4pdcLh0ixmlnd/view">題本連結</a><br><a target="_blank" rel="noopener" href="https://hackmd.io/@redleaf23477/nthu-ncpc-pre-2022">題解</a></p>
+<p>開場我先打 default code，游承桓跟林立上先讀題目。</p>
+<p>很快游承桓就把 pA 丟給我了，是一道簽到題。</p>
+<p>$\text{[0:06] pA }\color{green}{\text{AC}}$</p>
+<p>林立上從後面看，發現 pK 也是水題，要輸出謝爾賓斯基碎形。</p>
+<p>這題是遞迴的經典題，但卡了一點時間，因為我耍笨只輸出 $N$ 行，應該要輸出 $3^N$ 行。</p>
+<p>$\text{[0:22] pK }\color{green}{\text{AC}}$ (首殺)</p>
+<p>還蠻意外在卡了那麼久之後還能拿到這題的首殺</p>
+<p>游承桓發現 pD 是中國剩餘定理的裸題，所以我就很開心的從 Codebook 抄了 <code>extgcd</code> 跟 <code>crt</code> 的模板，然後 submit。</p>
+<p>$\text{[0:35] pD }\color{red}{\text{WA}}$</p>
+<p>我以為是 <code>crt</code> 小的要放前面的問題，所以修改了之後又上傳一次。</p>
+<p>$\text{[0:40] pD }\color{red}{\text{WA}}$</p>
+<p>我們把 code 列印下來檢查是不是模板抄錯，也寫了暴力對拍都是對的，沒有找到 bug，所以就先跑去開 pG。</p>
+<p>pG 一開始寫了五層的迴圈，但沒有注意到抽 $5$ 張牌是同時，與順序無關，所以以為這個方法行不通，因此跑去寫了 DP 的解，然後丟上去。</p>
+<p>$\text{[0:45] pG }\color{red}{\text{WA}}$</p>
+<p>一開始以為這題是 Output only，因為題本上似乎沒給範例測資，但後來有發現 judge 上面有測資可以下載，所以就稍微修改了一下然後上傳。</p>
+<p>$\text{[0:59] pG }\color{green}{\text{AC}}$</p>
+<p>賽後助教說 pG 的首殺跟官解都是直接用五層迴圈，顯然我在吃毒。</p>
+<p>之後我們又開了很多題，pF 看起來是 flow，但是沒有想到要怎麼建圖。pH 是噁心的模擬題，要處理的細節蠻多的。pB 以為是奇怪的斜率優化 DP。</p>
+<p>又過了一個小時後，我們決定把 pD 改成 <code>__int128</code> 試試看，雖然題目保證答案不超過 $2^{31}$ (一開始想說 <code>long long</code> 應該就夠了)。</p>
+<p>$\text{[1:57] pD }\color{green}{\text{AC}}$</p>
+<p>AC 後反而一臉矇逼？！</p>
+<p>pH 雖然噁心，但是看起來是目前比較有機會做出來的題目，因此為了判斷 pH 的線段相交，我們從 Codebook 抄了將近 $100$ 行的模板，但是寫一寫就半放棄了，實作好噁心。</p>
+<p>pE 可以發現對於一個連通塊 (高度相同) 他們的 spawn 值必定相同，並且一個點如果可以是 spawn 點，那麼該連通塊上所有高度比他小的的鄰居必須全部都是 spawn 點。<br>因此我刻了 DSU 來維護連通塊，再對高度做排序，由低往高枚舉，實作起來其實蠻乾淨的。</p>
+<p>$\text{[2:50] pE }\color{green}{\text{AC}}$</p>
+<p>耶，一發 AC！我們的排名也回到第 $5$ 名，第 $6$ 名跟我們 penalty 差不到 $20$ 分鐘。</p>
+<p>這時候差不多封板了，pB 跟 pH 蠻多隊寫出來。</p>
+<p>pB 我寫了從後面回推的 greedy，但很快被隊友發現是假解。後來林立上提出另一個 greedy，從對答案的貢獻下手。我們用這個方法試了範例測資都是對的，所以就跑去寫寫看。</p>
+<p>$\text{[4:22] pB }\color{green}{\text{AC}}$</p>
+<p>林立上 orz，想不到這樣就過了，難怪那麼多組比我們早寫出來，賽後題解出來也被證實這是一道水題，完全是我們想得太複雜了 (其實是古老 ABC round 的題目直接搬過來的)</p>
+<p>剩下的時間就都拿去寫 pH 了，雖然範測有過，但是送出去後吃 WA 也沒有頭緒。賽後推測可能是因為 $K \leq 10^{18}$ 然後內積和外積都有乘法所以有可能會 overflow。</p>
+<h2 id="結果"><a href="#結果" class="headerlink" title="結果"></a>結果</h2><p>AC：$6/11$<br>penalty：$756$<br>Rank $5$</p>
+<p>結果 pF 真的是 flow，但要用到我還不會的 Konig’s Theorem。</p>
+<p>開板後維持在 Rank $5$，第 $6$ 名的 penalty 只多我們 $30$ 分鐘，不過在開板前大概就有猜到可以晉級，因為後面沒有 $6$ 題的。</p>
+<p>接下來 10/15 就要打 NCPC 決賽了，希望中間這段時間可以多 virtual 個幾場 (如果 NCPC 決賽不幸燒雞還有 TOPC 可以打)。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%AB%B6%E7%A8%8B/" class="category-chain-item">競程</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%AB%B6%E7%A8%8B/%E5%BF%83%E5%BE%97/" class="category-chain-item">心得</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%BF%83%E5%BE%97/">#心得</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>【心得】2022 NCPC 校內賽心得</div>
+      <div>https://fffelix-huang.github.io/posts/ncpc-2022-pre/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>老鼠</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>September 18, 2022</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - Non-commercial">
+                    <i class="iconfont icon-nc"></i>
+                  </span>
+                </a>
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - Share-alike">
+                    <i class="iconfont icon-sa"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/icpc-2022-taoyuan/" title="【心得】2022 ICPC Asia Taoyuan Regional 心得">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【心得】2022 ICPC Asia Taoyuan Regional 心得</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/npsc-2020-a/" title="【題解】NPSC 2020 pA 邊緣人">
+                        <span class="hidden-mobile">【題解】NPSC 2020 pA 邊緣人</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
